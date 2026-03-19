@@ -78,7 +78,7 @@ export function MessageList({
                     <Icon className="w-3.5 h-3.5 text-primary/60 group-hover:text-primary/90 transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed line-clamp-2">
+                    <p className="text-xs text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
                       {q.text}
                     </p>
                   </div>
