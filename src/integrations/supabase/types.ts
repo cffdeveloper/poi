@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      intel_snapshots: {
+        Row: {
+          alerts: Json | null
+          analysis: string | null
+          connections: Json | null
+          created_at: string
+          gaps: Json | null
+          id: string
+          live_data: Json | null
+          news: Json | null
+          scope_key: string
+          scope_type: string
+          summary: string | null
+        }
+        Insert: {
+          alerts?: Json | null
+          analysis?: string | null
+          connections?: Json | null
+          created_at?: string
+          gaps?: Json | null
+          id?: string
+          live_data?: Json | null
+          news?: Json | null
+          scope_key: string
+          scope_type: string
+          summary?: string | null
+        }
+        Update: {
+          alerts?: Json | null
+          analysis?: string | null
+          connections?: Json | null
+          created_at?: string
+          gaps?: Json | null
+          id?: string
+          live_data?: Json | null
+          news?: Json | null
+          scope_key?: string
+          scope_type?: string
+          summary?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
