@@ -2,3 +2,6 @@ project_id = "jhwzafjnvrhppdnyqzko"
 
 [functions.nexus-ai]
 verify_jwt = false
+
+[functions.intel-feed]
+verify_jwt = false
