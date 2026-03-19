@@ -1,7 +1,11 @@
 import { useParams, Navigate, Link } from "react-router-dom";
 import { getSubFlow } from "@/lib/industryData";
-import { ArrowLeft, TrendingUp, Newspaper, Lightbulb, RefreshCw, Loader2, AlertTriangle } from "lucide-react";
+import { ArrowLeft, TrendingUp, Lightbulb, RefreshCw, Loader2, AlertTriangle } from "lucide-react";
 import { useSubFlowIntel } from "@/hooks/useSubFlowIntel";
+import { useIndustryNews } from "@/hooks/useIndustryNews";
+import { useSnapshots } from "@/hooks/useSnapshots";
+import { NewsFeed } from "@/components/intel/NewsFeed";
+import { SnapshotTimeline } from "@/components/intel/SnapshotTimeline";
 
 export default function SubFlowPage() {
   const { slug, subFlowId } = useParams<{ slug: string; subFlowId: string }>();
@@ -11,6 +15,9 @@ export default function SubFlowPage() {
     result?.subFlow.keywords || [],
     result?.industry.name || ""
   );
+  const { articles, loading: newsLoading } = useIndustryNews(result?.subFlow.keywords || []);
+  const scopeKey = result ? `${result.industry.name}::${result.subFlow.name}` : "";
+  const { snapshots, loading: snapsLoading } = useSnapshots("subflow", scopeKey);
 
   if (!result) return <Navigate to="/" replace />;
   const { industry, subFlow } = result;
@@ -28,15 +35,10 @@ export default function SubFlowPage() {
             <h1 className="text-lg font-mono font-bold text-foreground">{subFlow.name}</h1>
             <p className="text-xs font-mono text-muted-foreground mt-0.5">{subFlow.description}</p>
           </div>
-          <button
-            onClick={refresh}
-            disabled={loading}
-            className="p-1.5 rounded border border-border/50 hover:bg-muted/30 transition-colors text-muted-foreground hover:text-foreground disabled:opacity-50"
-          >
+          <button onClick={refresh} disabled={loading} className="p-1.5 rounded border border-border/50 hover:bg-muted/30 transition-colors text-muted-foreground hover:text-foreground disabled:opacity-50">
             {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
           </button>
         </div>
-        {/* Money flow visualization */}
         <div className="mt-3 p-3 rounded bg-muted/20 border border-border/30">
           <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider mb-1">Money Flow</p>
           <p className="text-[10px] font-mono text-foreground leading-relaxed">{subFlow.moneyFlow}</p>
@@ -85,24 +87,8 @@ export default function SubFlowPage() {
           )}
         </div>
 
-        {/* News */}
-        <div className="glass-panel p-4">
-          <h2 className="text-xs font-mono font-bold text-foreground mb-2 flex items-center gap-1.5">
-            <Newspaper className="w-3.5 h-3.5" /> LATEST NEWS
-          </h2>
-          {data?.news && data.news.length > 0 ? (
-            <div className="space-y-2">
-              {data.news.map((item: any, i: number) => (
-                <div key={i} className="p-2 rounded bg-muted/20 border border-border/20">
-                  <p className="text-[10px] font-mono font-bold text-foreground">{item.title}</p>
-                  <p className="text-[10px] font-mono text-muted-foreground mt-0.5">{item.summary}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-xs font-mono text-muted-foreground">Loading news...</p>
-          )}
-        </div>
+        {/* Real News Feed */}
+        <NewsFeed articles={articles} loading={newsLoading} />
 
         {/* Key Alerts */}
         <div className="glass-panel p-4">
@@ -138,6 +124,9 @@ export default function SubFlowPage() {
           </div>
         </div>
       )}
+
+      {/* Historical Snapshots */}
+      <SnapshotTimeline snapshots={snapshots} loading={snapsLoading} />
     </div>
   );
 }

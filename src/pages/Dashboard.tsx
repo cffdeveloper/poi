@@ -1,19 +1,41 @@
 import { Link } from "react-router-dom";
 import { industries } from "@/lib/industryData";
-import { ArrowRight, TrendingUp, AlertTriangle, Zap } from "lucide-react";
+import { ArrowRight, TrendingUp, Zap, Bell, BellOff } from "lucide-react";
+import { WorldMap } from "@/components/intel/WorldMap";
+import { useAlertNotifications } from "@/hooks/useAlertNotifications";
+import { useState } from "react";
 
 export default function Dashboard() {
+  const [alertsEnabled, setAlertsEnabled] = useState(true);
+  const { requestNotificationPermission } = useAlertNotifications([], alertsEnabled);
+
+  const handleEnableNotifications = async () => {
+    await requestNotificationPermission();
+    setAlertsEnabled(true);
+  };
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Hero */}
       <div className="glass-panel p-6 glow-border">
-        <h1 className="text-2xl font-mono font-bold text-foreground mb-1">
-          World Industry <span className="text-primary">Money Flows</span> Atlas
-        </h1>
-        <p className="text-xs font-mono text-muted-foreground max-w-2xl">
-          Real-time intelligence across 20 industries, 70+ money flows. Live data feeds, AI-powered gap detection, 
-          cross-industry connections, and proactive alerts — updated every few minutes.
-        </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-mono font-bold text-foreground mb-1">
+              World Industry <span className="text-primary">Money Flows</span> Atlas
+            </h1>
+            <p className="text-xs font-mono text-muted-foreground max-w-2xl">
+              Real-time intelligence across 20 industries, 70+ money flows. Live data feeds, AI-powered gap detection,
+              cross-industry connections, and proactive alerts — updated every few minutes.
+            </p>
+          </div>
+          <button
+            onClick={alertsEnabled ? () => setAlertsEnabled(false) : handleEnableNotifications}
+            className={`p-2 rounded border transition-colors ${alertsEnabled ? 'border-primary/30 text-primary bg-primary/5' : 'border-border/50 text-muted-foreground hover:text-foreground'}`}
+            title={alertsEnabled ? "Disable alerts" : "Enable alerts"}
+          >
+            {alertsEnabled ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
+          </button>
+        </div>
         <div className="flex gap-3 mt-4">
           <Link to="/intel" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary/10 text-primary text-xs font-mono hover:bg-primary/20 transition-colors border border-primary/20">
             <Zap className="w-3 h-3" /> Live Intel Feed
@@ -44,10 +66,12 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* World Map */}
+      <WorldMap />
+
       {/* Industry grid */}
       <div>
         <h2 className="text-sm font-mono font-bold text-foreground mb-3 flex items-center gap-2">
-          <AlertTriangle className="w-3.5 h-3.5 text-accent" />
           ALL INDUSTRIES
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">

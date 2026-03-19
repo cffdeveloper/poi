@@ -2,11 +2,18 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { getIndustryBySlug } from "@/lib/industryData";
 import { ArrowRight, TrendingUp, Loader2 } from "lucide-react";
 import { useIndustryIntel } from "@/hooks/useIndustryIntel";
+import { useIndustryNews } from "@/hooks/useIndustryNews";
+import { useSnapshots } from "@/hooks/useSnapshots";
+import { NewsFeed } from "@/components/intel/NewsFeed";
+import { SnapshotTimeline } from "@/components/intel/SnapshotTimeline";
 
 export default function IndustryPage() {
   const { slug } = useParams<{ slug: string }>();
   const industry = slug ? getIndustryBySlug(slug) : undefined;
-  const { data, loading } = useIndustryIntel(industry?.name || "", industry?.subFlows.flatMap(sf => sf.keywords).slice(0, 10) || []);
+  const keywords = industry?.subFlows.flatMap(sf => sf.keywords).slice(0, 10) || [];
+  const { data, loading } = useIndustryIntel(industry?.name || "", keywords);
+  const { articles, loading: newsLoading } = useIndustryNews(keywords);
+  const { snapshots, loading: snapsLoading } = useSnapshots("industry", industry?.name || "");
 
   if (!industry) return <Navigate to="/" replace />;
 
@@ -43,6 +50,9 @@ export default function IndustryPage() {
         )}
       </div>
 
+      {/* Live News Feed */}
+      <NewsFeed articles={articles} loading={newsLoading} />
+
       {/* Sub-flows grid */}
       <div>
         <h2 className="text-xs font-mono font-bold text-foreground mb-3">MONEY FLOWS</h2>
@@ -69,10 +79,10 @@ export default function IndustryPage() {
         </div>
       </div>
 
-      {/* News section */}
+      {/* News from AI analysis */}
       {data?.news && data.news.length > 0 && (
         <div className="glass-panel p-4">
-          <h2 className="text-xs font-mono font-bold text-foreground mb-3">LATEST NEWS & DEVELOPMENTS</h2>
+          <h2 className="text-xs font-mono font-bold text-foreground mb-3">AI-DETECTED DEVELOPMENTS</h2>
           <div className="space-y-2">
             {data.news.map((item: any, i: number) => (
               <div key={i} className="p-2 rounded bg-muted/20 border border-border/20">
@@ -83,6 +93,9 @@ export default function IndustryPage() {
           </div>
         </div>
       )}
+
+      {/* Historical Snapshots */}
+      <SnapshotTimeline snapshots={snapshots} loading={snapsLoading} />
     </div>
   );
 }

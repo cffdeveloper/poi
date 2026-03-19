@@ -2,6 +2,10 @@ import { useState, useCallback, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { industries } from "@/lib/industryData";
 import { Loader2, Network, RefreshCw, AlertTriangle, Lightbulb, TrendingUp } from "lucide-react";
+import { WorldMap } from "@/components/intel/WorldMap";
+import { SnapshotTimeline } from "@/components/intel/SnapshotTimeline";
+import { useSnapshots } from "@/hooks/useSnapshots";
+import { useAlertNotifications } from "@/hooks/useAlertNotifications";
 
 type CrossIntel = {
   gaps: { title: string; detail: string; industries: string[] }[];
@@ -13,6 +17,8 @@ type CrossIntel = {
 export default function CrossIntelPage() {
   const [data, setData] = useState<CrossIntel | null>(null);
   const [loading, setLoading] = useState(true);
+  const { snapshots, loading: snapsLoading } = useSnapshots("cross-industry", "all");
+  useAlertNotifications(data?.alerts || [], true);
 
   const fetchIntel = useCallback(async () => {
     setLoading(true);
@@ -65,6 +71,9 @@ export default function CrossIntelPage() {
             <h2 className="text-xs font-mono font-bold text-primary mb-2">EXECUTIVE SUMMARY</h2>
             <p className="text-[11px] font-mono text-card-foreground leading-relaxed whitespace-pre-wrap">{data.summary}</p>
           </div>
+
+          {/* World Map */}
+          <WorldMap />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Cross-Industry Gaps */}
@@ -122,6 +131,9 @@ export default function CrossIntelPage() {
               </div>
             </div>
           </div>
+
+          {/* Historical Snapshots */}
+          <SnapshotTimeline snapshots={snapshots} loading={snapsLoading} />
         </>
       ) : (
         <p className="text-xs font-mono text-muted-foreground text-center py-20">Failed to load cross-industry intel. Try refreshing.</p>
