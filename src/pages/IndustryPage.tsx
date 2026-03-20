@@ -18,6 +18,7 @@ export default function IndustryPage() {
   const { geoString } = useGeoContext();
   const { data, loading } = useIndustryIntel(industry?.name || "", keywords, geoString);
   const { articles, loading: newsLoading } = useIndustryNews(keywords);
+  const { data: socialData, loading: socialLoading } = useSocialIntel(industry?.name || "", null, keywords, geoString);
   const { snapshots, loading: snapsLoading } = useSnapshots("industry", industry?.name || "");
 
   if (!industry) return <Navigate to="/" replace />;
