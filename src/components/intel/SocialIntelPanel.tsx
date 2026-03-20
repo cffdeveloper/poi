@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Loader2, Zap, Users, TrendingUp, AlertTriangle, Radio } from "lucide-react";
+import { Loader2, Zap, Users, TrendingUp, AlertTriangle, Radio, Twitter } from "lucide-react";
 import { ClickableItem } from "./ClickableItem";
 
 interface SocialIntelPanelProps {
