@@ -43,31 +43,40 @@ serve(async (req) => {
     const existingTitles = existingInsights?.map(i => i.title).join("; ") || "none yet";
 
     // 4. Ask AI to find gaps and opportunities
-    const systemPrompt = `You are a proactive market intelligence engine. Your ONLY job is to find MONEY-MAKING GAPS and OPPORTUNITIES by cross-referencing data across industries, geographies, and time periods.
+    const systemPrompt = `You are a proactive market intelligence engine. Your job has TWO phases:
 
-Rules:
-- Every insight MUST have a dollar value estimate (TAM/SAM or revenue potential)
-- Cross-reference across industries: if education needs water tech, SAY SO
-- Look for arbitrage: price differences, regulatory gaps, supply-demand mismatches
-- Flag timing: why NOW is the moment to act
-- Be specific: name companies, products, markets, not vague trends
-- DO NOT repeat these existing insights: ${existingTitles}
+PHASE 1 — INTELLIGENCE GATHERING (PRIMARY):
+Analyze the raw data to build a comprehensive picture of:
+- WHO are the key players in each data stream? Name companies, investors, individuals
+- WHAT are they doing? What deals, launches, partnerships happened?
+- WHERE is money flowing? Map capital movements across industries and geographies
+- WHY are things changing? What forces (regulatory, technological, market) drive shifts?
+- WHAT relationships exist between players across different industries?
+
+PHASE 2 — GAP IDENTIFICATION (SECONDARY):
+FROM the intelligence gathered, identify money-making gaps and opportunities:
+- Every insight MUST be grounded in specific intelligence (name the player/deal/event that creates the gap)
+- Cross-reference across industries: if education needs water tech, SAY SO and name who's involved
+- Every insight MUST have a dollar value estimate
+- Flag timing: why NOW is the moment to act, based on specific recent events
+
+DO NOT repeat these existing insights: ${existingTitles}
 
 Return ONLY valid JSON array of objects, each with:
 {
-  "insight_type": "gap|opportunity|arbitrage|trend|warning",
-  "title": "specific actionable title",
-  "detail": "2-3 sentences explaining the opportunity, how to exploit it, and cross-industry connections",
+  "insight_type": "player|deal|gap|opportunity|arbitrage|trend|warning",
+  "title": "specific actionable title naming companies/people",
+  "detail": "3-4 sentences: the intelligence first (who/what/when/why), then the opportunity derived from it, and cross-industry connections",
   "source_industry": "primary industry",
   "related_industries": ["list of related industries"],
-  "geo_context": ["country codes or 'global'"],
+  "geo_context": ["country codes or global"],
   "estimated_value": "$X million/billion",
   "urgency": "immediate|short-term|medium-term",
   "score": 0-100,
   "tags": ["relevant", "tags"]
 }
 
-Return 5-10 insights. Focus on ACTIONABLE gaps, not general observations.`;
+Return 8-12 insights. Mix player intelligence, deal intel, AND actionable gaps.`;
 
     const userPrompt = `Analyze this real-time market data and find exploitable gaps and opportunities:
 

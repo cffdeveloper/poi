@@ -155,6 +155,35 @@ Return JSON:
         // Store individual insights for persistent learning
         const insights: any[] = [];
 
+        // Store players as intel
+        for (const player of (parsed.players || [])) {
+          insights.push({
+            insight_type: "player",
+            title: player.name,
+            detail: `${player.role}. Recent: ${player.recent_activity}. Strategy: ${player.strategy}. Partners: ${player.partnerships || 'N/A'}`,
+            source_industry: industry,
+            source_subflow: subFlow || null,
+            geo_context: geoArray,
+            tags: ["player", "intelligence"],
+            raw_data: player,
+          });
+        }
+
+        // Store deals
+        for (const deal of (parsed.deals || [])) {
+          insights.push({
+            insight_type: "deal",
+            title: `${deal.type}: ${deal.parties}`,
+            detail: `${deal.significance}. Value: ${deal.value || 'undisclosed'}. Date: ${deal.date || 'recent'}`,
+            source_industry: industry,
+            source_subflow: subFlow || null,
+            geo_context: geoArray,
+            estimated_value: deal.value || null,
+            tags: ["deal", deal.type || "unknown"],
+            raw_data: deal,
+          });
+        }
+
         for (const gap of (parsed.gaps || [])) {
           insights.push({
             insight_type: "gap",
@@ -165,7 +194,7 @@ Return JSON:
             geo_context: geoArray,
             estimated_value: gap.value || null,
             urgency: gap.urgency || null,
-            tags: [gap.capital_needed ? `capital:${gap.capital_needed}` : ""].filter(Boolean),
+            tags: [gap.capital_needed ? `capital:${gap.capital_needed}` : "", gap.related_players || ""].filter(Boolean),
             raw_data: gap,
           });
         }
