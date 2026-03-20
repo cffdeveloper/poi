@@ -11,6 +11,7 @@ import { NewsFeed } from "@/components/intel/NewsFeed";
 import { SocialIntelPanel } from "@/components/intel/SocialIntelPanel";
 import { SnapshotTimeline } from "@/components/intel/SnapshotTimeline";
 import { ClickableItem } from "@/components/intel/ClickableItem";
+import { BlockMarkdown, InlineMarkdown } from "@/components/InlineMarkdown";
 
 export default function SubFlowPage() {
   const { slug, subFlowId } = useParams<{ slug: string; subFlowId: string }>();
@@ -84,9 +85,9 @@ export default function SubFlowPage() {
               <span className="text-xs font-mono text-muted-foreground">Analyzing {subFlow.name}...</span>
             </div>
           ) : (cachedReport?.summary || data?.analysis) ? (
-            <p className="text-[11px] font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-6">
-              {cachedReport?.summary || data?.analysis}
-            </p>
+            <div className="text-[11px] font-mono text-card-foreground leading-relaxed line-clamp-6">
+              <BlockMarkdown content={cachedReport?.summary || data?.analysis || ""} />
+            </div>
           ) : (
             <p className="text-xs font-mono text-muted-foreground">Auto-intel will generate report on next cycle.</p>
           )}
@@ -109,7 +110,9 @@ export default function SubFlowPage() {
                   className="p-2 rounded bg-accent/5 border border-accent/20 hover:border-accent/50 transition-colors"
                 >
                   <p className="text-[10px] font-mono font-bold text-accent">{gap.title}</p>
-                  <p className="text-[10px] font-mono text-muted-foreground mt-0.5">{gap.detail}</p>
+                  <div className="text-[10px] font-mono text-muted-foreground mt-0.5">
+                    <InlineMarkdown content={gap.detail || ""} />
+                  </div>
                 </ClickableItem>
               ))}
             </div>
@@ -146,7 +149,9 @@ export default function SubFlowPage() {
                   className={`p-2 rounded border hover:opacity-80 transition-opacity ${alert.level === 'critical' ? 'bg-destructive/10 border-destructive/30' : alert.level === 'high' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-muted/20 border-border/20'}`}
                 >
                   <p className="text-[10px] font-mono font-bold text-foreground">{alert.title}</p>
-                  <p className="text-[10px] font-mono text-muted-foreground mt-0.5">{alert.detail}</p>
+                  <div className="text-[10px] font-mono text-muted-foreground mt-0.5">
+                    <InlineMarkdown content={alert.detail || ""} />
+                  </div>
                 </ClickableItem>
               ))}
             </div>

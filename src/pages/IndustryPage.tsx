@@ -11,6 +11,7 @@ import { NewsFeed } from "@/components/intel/NewsFeed";
 import { SocialIntelPanel } from "@/components/intel/SocialIntelPanel";
 import { SnapshotTimeline } from "@/components/intel/SnapshotTimeline";
 import { ClickableItem } from "@/components/intel/ClickableItem";
+import { BlockMarkdown, InlineMarkdown } from "@/components/InlineMarkdown";
 
 export default function IndustryPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -41,7 +42,7 @@ export default function IndustryPage() {
         <p className="text-xs font-mono text-muted-foreground">{industry.description}</p>
       </div>
 
-      {/* AI Industry Brief — uses cached report as primary, live as fallback */}
+      {/* AI Industry Brief */}
       <ClickableItem
         title={`${industry.name} — Full Industry Intelligence Report`}
         detail={cachedReport?.analysis || data?.analysis}
@@ -68,13 +69,8 @@ export default function IndustryPage() {
             <span className="text-xs font-mono text-muted-foreground">Analyzing {industry.name} landscape...</span>
           </div>
         ) : (cachedReport?.summary || data?.analysis) ? (
-          <div>
-            {cachedReport?.summary && (
-              <p className="text-xs font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-4">{cachedReport.summary}</p>
-            )}
-            {!cachedReport?.summary && data?.analysis && (
-              <p className="text-xs font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-4">{data.analysis}</p>
-            )}
+          <div className="text-xs font-mono text-card-foreground leading-relaxed line-clamp-4">
+            <BlockMarkdown content={cachedReport?.summary || data?.analysis || ""} />
           </div>
         ) : (
           <p className="text-xs font-mono text-muted-foreground">Analysis unavailable — auto-intel will generate on next cycle.</p>
@@ -95,7 +91,9 @@ export default function IndustryPage() {
                 "bg-muted/20 border-border/20"
               }`}>
                 <p className="text-[10px] font-mono font-bold text-foreground">{alert.title}</p>
-                <p className="text-[9px] font-mono text-muted-foreground mt-0.5">{alert.detail}</p>
+                <div className="text-[9px] font-mono text-muted-foreground mt-0.5">
+                  <InlineMarkdown content={alert.detail || ""} />
+                </div>
               </div>
             ))}
           </div>
@@ -128,7 +126,9 @@ export default function IndustryPage() {
                     }`}>{gap.urgency}</span>
                   </div>
                 </div>
-                <p className="text-[9px] font-mono text-muted-foreground mt-1">{gap.detail}</p>
+                <div className="text-[9px] font-mono text-muted-foreground mt-1">
+                  <InlineMarkdown content={gap.detail || ""} />
+                </div>
               </ClickableItem>
             ))}
           </div>
@@ -155,7 +155,9 @@ export default function IndustryPage() {
                   <span className="text-[8px] font-mono text-muted-foreground/50">→ dive</span>
                 </div>
                 <p className="text-[10px] font-mono text-primary mt-0.5">{player.role}</p>
-                <p className="text-[10px] font-mono text-muted-foreground mt-0.5 line-clamp-2">{player.recent_activity}</p>
+                <div className="text-[10px] font-mono text-muted-foreground mt-0.5 line-clamp-2">
+                  <InlineMarkdown content={player.recent_activity || ""} />
+                </div>
               </ClickableItem>
             ))}
           </div>
@@ -182,7 +184,9 @@ export default function IndustryPage() {
                   <p className="text-xs font-mono text-foreground flex-1">{deal.parties}</p>
                   {deal.value && <span className="text-[10px] font-mono text-primary font-bold">{deal.value}</span>}
                 </div>
-                <p className="text-[10px] font-mono text-muted-foreground mt-1">{deal.significance}</p>
+                <div className="text-[10px] font-mono text-muted-foreground mt-1">
+                  <InlineMarkdown content={deal.significance || ""} />
+                </div>
                 {deal.date && <p className="text-[9px] font-mono text-muted-foreground/50 mt-0.5">{deal.date}</p>}
               </ClickableItem>
             ))}
@@ -222,7 +226,7 @@ export default function IndustryPage() {
         </div>
       </div>
 
-      {/* News from AI analysis — clickable */}
+      {/* News from AI analysis */}
       {data?.news && data.news.length > 0 && (
         <div className="glass-panel p-4">
           <h2 className="text-xs font-mono font-bold text-foreground mb-3">AI-DETECTED DEVELOPMENTS</h2>
@@ -236,7 +240,9 @@ export default function IndustryPage() {
                 className="p-2 rounded bg-muted/20 border border-border/20 hover:border-primary/20 transition-colors"
               >
                 <p className="text-xs font-mono text-foreground">{item.title}</p>
-                <p className="text-[10px] font-mono text-muted-foreground mt-0.5">{item.summary}</p>
+                <div className="text-[10px] font-mono text-muted-foreground mt-0.5">
+                  <InlineMarkdown content={item.summary || ""} />
+                </div>
               </ClickableItem>
             ))}
           </div>

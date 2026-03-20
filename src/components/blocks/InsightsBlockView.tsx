@@ -1,5 +1,6 @@
 import type { InsightsBlock } from "@/lib/blockTypes";
 import { Lightbulb } from "lucide-react";
+import { InlineMarkdown } from "@/components/InlineMarkdown";
 
 function scoreColor(score: number): string {
   if (score >= 8) return "text-emerald-400 border-emerald-500/40 bg-emerald-500/10";
@@ -35,7 +36,9 @@ export function InsightsBlockView({ data }: { data: InsightsBlock["data"] }) {
               {item.score}
             </div>
             <div className="flex-1 min-w-0 space-y-1.5">
-              <p className="text-xs text-card-foreground leading-relaxed">{item.text}</p>
+              <div className="text-xs text-card-foreground leading-relaxed">
+                <InlineMarkdown content={item.text} />
+              </div>
               <span className={`inline-block text-[9px] font-mono px-2 py-0.5 rounded-full border tracking-wider uppercase ${tagColor(item.tag)}`}>
                 {item.tag}
               </span>

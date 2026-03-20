@@ -1,5 +1,6 @@
 import type { StepsBlock } from "@/lib/blockTypes";
 import { Route, CheckCircle2, Circle, AlertCircle, Clock } from "lucide-react";
+import { InlineMarkdown } from "@/components/InlineMarkdown";
 
 const statusConfig = {
   critical: { icon: AlertCircle, color: "text-red-400", line: "bg-red-400/40", dot: "bg-red-400", bg: "bg-red-500/8" },
@@ -23,16 +24,13 @@ export function StepsBlockView({ data }: { data: StepsBlock["data"] }) {
 
           return (
             <div key={i} className="flex gap-3">
-              {/* Timeline */}
               <div className="flex flex-col items-center">
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center ${config.bg} border border-current/20`}>
                   <Icon className={`w-3.5 h-3.5 ${config.color}`} />
                 </div>
                 {!isLast && <div className={`w-px flex-1 my-1 ${config.line}`} />}
               </div>
-
-              {/* Content */}
-              <div className={`flex-1 pb-5 ${isLast ? "" : ""}`}>
+              <div className={`flex-1 pb-5`}>
                 <div className="flex items-center gap-2 mb-1">
                   <h4 className={`text-xs font-mono font-bold ${config.color}`}>{step.phase}</h4>
                   <span className="text-[9px] font-mono text-muted-foreground/60 px-1.5 py-0.5 rounded bg-muted/30 tracking-wide">
@@ -43,7 +41,7 @@ export function StepsBlockView({ data }: { data: StepsBlock["data"] }) {
                   {step.tasks.map((task, j) => (
                     <li key={j} className="flex items-start gap-2 text-xs text-card-foreground/80 leading-relaxed">
                       <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${config.dot} opacity-60`} />
-                      {task}
+                      <InlineMarkdown content={task} />
                     </li>
                   ))}
                 </ul>

@@ -1,5 +1,6 @@
 import type { Alert } from "@/lib/intelTypes";
 import { AlertTriangle, TrendingDown, Zap, Radio, Info, DollarSign, Ship, Rocket, BarChart3 } from "lucide-react";
+import { InlineMarkdown } from "@/components/InlineMarkdown";
 
 const levelConfig: Record<string, { icon: React.ElementType; bg: string; border: string; text: string; dot: string }> = {
   critical: { icon: AlertTriangle, bg: "bg-destructive/10", border: "border-destructive/30", text: "text-destructive", dot: "bg-destructive" },
@@ -41,7 +42,9 @@ export function AlertsBanner({ alerts }: { alerts: Alert[] }) {
               <Icon className={`w-3.5 h-3.5 mt-0.5 ${cfg.text} flex-shrink-0`} />
               <div className="min-w-0 flex-1">
                 <p className={`text-xs font-medium ${cfg.text} leading-tight`}>{alert.title}</p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">{alert.detail}</p>
+                <div className="text-[10px] text-muted-foreground mt-0.5">
+                  <InlineMarkdown content={alert.detail || ""} />
+                </div>
               </div>
               <span className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded ${cfg.bg} ${cfg.text} flex-shrink-0 border ${cfg.border}`}>
                 {alert.level}

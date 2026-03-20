@@ -1,4 +1,5 @@
-import { Clock, TrendingUp, Loader2 } from "lucide-react";
+import { Clock, Loader2 } from "lucide-react";
+import { InlineMarkdown } from "@/components/InlineMarkdown";
 
 export function SnapshotTimeline({ snapshots, loading }: { snapshots: any[]; loading: boolean }) {
   if (loading) {
@@ -60,10 +61,14 @@ export function SnapshotTimeline({ snapshots, loading }: { snapshots: any[]; loa
                 </div>
               </div>
               {snap.analysis && (
-                <p className="text-[9px] font-mono text-muted-foreground line-clamp-2">{snap.analysis.slice(0, 150)}...</p>
+                <div className="text-[9px] font-mono text-muted-foreground line-clamp-2">
+                  <InlineMarkdown content={snap.analysis.slice(0, 150) + "..."} />
+                </div>
               )}
               {snap.summary && (
-                <p className="text-[9px] font-mono text-muted-foreground line-clamp-2">{snap.summary.slice(0, 150)}...</p>
+                <div className="text-[9px] font-mono text-muted-foreground line-clamp-2">
+                  <InlineMarkdown content={snap.summary.slice(0, 150) + "..."} />
+                </div>
               )}
             </div>
           );
