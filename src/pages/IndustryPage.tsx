@@ -41,28 +41,99 @@ export default function IndustryPage() {
         <p className="text-xs font-mono text-muted-foreground">{industry.description}</p>
       </div>
 
-      {/* AI Industry Brief — clickable */}
+      {/* AI Industry Brief — uses cached report as primary, live as fallback */}
       <ClickableItem
         title={`${industry.name} — Full Industry Intelligence Report`}
-        detail={data?.analysis}
+        detail={cachedReport?.analysis || data?.analysis}
         industryName={industry.name}
         className="glass-panel p-4 hover:glow-border transition-all"
       >
-        <h2 className="text-xs font-mono font-bold text-primary mb-2 flex items-center gap-1.5">
-          <TrendingUp className="w-3.5 h-3.5" /> AI INDUSTRY BRIEF
-          <span className="text-[8px] font-mono text-muted-foreground/50 ml-auto">Click for deep dive →</span>
-        </h2>
-        {loading ? (
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-xs font-mono font-bold text-primary flex items-center gap-1.5">
+            <TrendingUp className="w-3.5 h-3.5" /> AI INDUSTRY BRIEF
+          </h2>
+          <div className="flex items-center gap-2">
+            {cachedReport?.created_at && (
+              <span className="text-[7px] font-mono text-muted-foreground flex items-center gap-1">
+                <Database className="w-2.5 h-2.5" />
+                Auto-updated {new Date(cachedReport.created_at).toLocaleString()}
+              </span>
+            )}
+            <span className="text-[8px] font-mono text-muted-foreground/50">Click for deep dive →</span>
+          </div>
+        </div>
+        {(loading && cacheLoading) ? (
           <div className="flex items-center gap-2 py-4">
             <Loader2 className="w-4 h-4 text-primary animate-spin" />
             <span className="text-xs font-mono text-muted-foreground">Analyzing {industry.name} landscape...</span>
           </div>
-        ) : data?.analysis ? (
-          <p className="text-xs font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-4">{data.analysis}</p>
+        ) : (cachedReport?.summary || data?.analysis) ? (
+          <div>
+            {cachedReport?.summary && (
+              <p className="text-xs font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-4">{cachedReport.summary}</p>
+            )}
+            {!cachedReport?.summary && data?.analysis && (
+              <p className="text-xs font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-4">{data.analysis}</p>
+            )}
+          </div>
         ) : (
-          <p className="text-xs font-mono text-muted-foreground">Analysis unavailable — will retry on next refresh.</p>
+          <p className="text-xs font-mono text-muted-foreground">Analysis unavailable — auto-intel will generate on next cycle.</p>
         )}
       </ClickableItem>
+
+      {/* Cached Alerts from auto-intel */}
+      {cachedReport?.alerts && cachedReport.alerts.length > 0 && (
+        <div className="glass-panel p-4">
+          <h2 className="text-xs font-mono font-bold text-foreground mb-3 flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-primary" /> AUTO-DETECTED ALERTS
+          </h2>
+          <div className="space-y-2">
+            {cachedReport.alerts.map((alert: any, i: number) => (
+              <div key={i} className={`p-2.5 rounded border ${
+                alert.severity === "critical" ? "bg-destructive/10 border-destructive/30" :
+                alert.severity === "warning" ? "bg-amber-500/10 border-amber-500/30" :
+                "bg-muted/20 border-border/20"
+              }`}>
+                <p className="text-[10px] font-mono font-bold text-foreground">{alert.title}</p>
+                <p className="text-[9px] font-mono text-muted-foreground mt-0.5">{alert.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Cached Gaps/Opportunities */}
+      {cachedReport?.gaps && cachedReport.gaps.length > 0 && (
+        <div className="glass-panel p-4">
+          <h2 className="text-xs font-mono font-bold text-foreground mb-3 flex items-center gap-1.5">
+            <TrendingUp className="w-3.5 h-3.5 text-primary" /> EXPLOITABLE GAPS (AUTO-DETECTED)
+          </h2>
+          <div className="space-y-2">
+            {cachedReport.gaps.map((gap: any, i: number) => (
+              <ClickableItem
+                key={i}
+                title={gap.title}
+                detail={gap.detail}
+                industryName={industry.name}
+                className="p-2.5 rounded bg-muted/20 border border-border/20 hover:border-primary/20 transition-colors"
+              >
+                <div className="flex items-start justify-between">
+                  <p className="text-[10px] font-mono font-bold text-foreground">{gap.title}</p>
+                  <div className="flex items-center gap-1.5">
+                    {gap.estimated_value && <span className="text-[8px] font-mono text-primary font-bold">{gap.estimated_value}</span>}
+                    <span className={`text-[7px] font-mono px-1.5 py-0.5 rounded ${
+                      gap.urgency === "critical" ? "bg-destructive/20 text-destructive" :
+                      gap.urgency === "high" ? "bg-amber-500/20 text-amber-400" :
+                      "bg-muted/30 text-muted-foreground"
+                    }`}>{gap.urgency}</span>
+                  </div>
+                </div>
+                <p className="text-[9px] font-mono text-muted-foreground mt-1">{gap.detail}</p>
+              </ClickableItem>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Key Players */}
       {data?.players && data.players.length > 0 && (
