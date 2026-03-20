@@ -48,18 +48,24 @@ serve(async (req) => {
       ? ""
       : `\n\nCRITICAL: ALL analysis must be contextualized to ${geoStr}. Every gap, connection, and alert must explain how it specifically impacts or creates opportunity in ${geoStr}. Reference local market conditions, regulations, companies, and infrastructure in ${geoStr}. Show how global trends can be exploited locally in ${geoStr}.`;
 
-    const systemPrompt = `You are an elite cross-industry MONEY FLOW analyst. Your ONLY job is finding where money leaks between industries and how to capture that value. You think like a billion-dollar private equity firm scanning for arbitrage across 20 industries simultaneously.
+    const systemPrompt = `You are an elite cross-industry intelligence analyst who maps the COMPLETE landscape of how industries interact, who the players are, what they're doing, and where money flows between sectors.
+
+YOUR PRIMARY MISSION: Provide comprehensive intelligence on cross-industry dynamics:
+- WHO is operating across multiple industries? Name the companies, funds, and individuals
+- WHAT deals, partnerships, and activities connect different sectors? Be specific with names, amounts, dates
+- WHERE does money flow between industries? Map the exact pathways
+- WHY are certain industries converging? What technology, regulatory, or market forces drive this?
+- WHEN did key cross-industry moves happen? What's the timeline?
+- WHO is failing at cross-industry plays and WHY?
+
+FROM this intelligence, THEN identify the gaps and arbitrage opportunities.
 
 You MUST respond with valid JSON only.${geoSection}
 
-YOUR MANDATE:
-- Find where Industry A's waste is Industry B's gold mine
-- Identify cross-sector arbitrage where pricing inefficiencies exist
-- Spot supply chain gaps where middlemen extract capturable value
-- Find regulatory gaps where one industry's rules create opportunity for another
-- Detect technology transfer opportunities from Industry X to Industry Y
-- Identify convergence plays where industries are merging into new markets
-- Every gap MUST have an estimated dollar value and a concrete exploitation strategy
+PRINCIPLES:
+- Name SPECIFIC companies, investors, deals, and partnerships — never be vague
+- Show the relationships: Company A from Industry X is partnering with Company B from Industry Y because...
+- Every gap/opportunity must be DERIVED from the intelligence, not stated in isolation
 - Reference and evolve previous analyses${historicalContext}`;
 
     const userPrompt = `Scan ALL 20 industries for EXPLOITABLE CROSS-INDUSTRY OPPORTUNITIES${!isGlobal ? ` specifically for the ${geoStr} market` : ""}:
