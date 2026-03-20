@@ -22,6 +22,9 @@ export default function SubFlowPage() {
     geoString
   );
   const { articles, loading: newsLoading } = useIndustryNews(result?.subFlow.keywords || []);
+  const { data: socialData, loading: socialLoading } = useSocialIntel(
+    result?.industry.name || "", result?.subFlow.name || null, result?.subFlow.keywords || [], geoString
+  );
   const scopeKey = result ? `${result.industry.name}::${result.subFlow.name}` : "";
   const { snapshots, loading: snapsLoading } = useSnapshots("subflow", scopeKey);
 
