@@ -6,6 +6,9 @@ import { FlightsPanel } from "@/components/intel/FlightsPanel";
 import { ForexPanel } from "@/components/intel/ForexPanel";
 import { WeatherPanel } from "@/components/intel/WeatherPanel";
 import { SpacePanel } from "@/components/intel/SpacePanel";
+import { FiresPanel } from "@/components/intel/FiresPanel";
+import { ConflictsPanel } from "@/components/intel/ConflictsPanel";
+import { InfrastructurePanel } from "@/components/intel/InfrastructurePanel";
 import { SourcesStatus } from "@/components/intel/SourcesStatus";
 import { RefreshCw, Loader2 } from "lucide-react";
 
