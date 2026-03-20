@@ -1,5 +1,6 @@
 import { PanelLeftClose, PanelLeft, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { GeoSelector } from "@/components/intel/GeoSelector";
 import { useGeoContext } from "@/contexts/GeoContext";
 import { BrandHexMark } from "@/components/BrandHexMark";
@@ -26,6 +27,7 @@ export function TopBar({ sidebarOpen, toggleSidebar }: { sidebarOpen: boolean; t
       </span>
 
       <div className="ml-auto flex items-center gap-2">
+        <ThemeToggle />
         <GeoSelector />
         <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-muted/50 border border-border/50">
           <span className="text-[9px] text-muted-foreground">20 IND</span>

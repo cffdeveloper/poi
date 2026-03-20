@@ -153,7 +153,10 @@ export function RegionAnalyticsDialog({ open, onClose, region }: RegionAnalytics
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-5xl max-h-[92vh] flex flex-col gap-0 overflow-hidden bg-background border-border p-0 shadow-2xl shadow-primary/10 data-[state=open]:duration-300">
+      <DialogContent
+        aria-describedby={undefined}
+        className="max-w-5xl max-h-[92vh] flex flex-col gap-0 overflow-hidden bg-background border-border p-0 shadow-2xl shadow-primary/10 data-[state=open]:duration-300"
+      >
         {/* Command-center header */}
         <div className="relative shrink-0 px-6 pt-6 pb-5 border-b border-border/50 overflow-hidden">
           <div

@@ -65,7 +65,10 @@ export function DeepDiveDialog({ open, onClose, topic, context, industryName, su
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && handleClose()}>
-      <DialogContent className="max-w-4xl max-h-[85vh] flex flex-col gap-0 overflow-hidden p-0 bg-background border-border">
+      <DialogContent
+        aria-describedby={undefined}
+        className="max-w-4xl max-h-[85vh] flex flex-col gap-0 overflow-hidden p-0 bg-background border-border"
+      >
         <div className="shrink-0 px-6 pt-6 pb-3 pr-14">
           <DialogHeader>
             <DialogTitle className="text-sm font-mono font-bold text-foreground flex items-center gap-2">
