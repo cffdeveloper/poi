@@ -337,7 +337,6 @@ export const industries: Industry[] = [
       { id: "20.4", name: "Pharmaceutical Chemicals", shortName: "Pharma Chem", description: "API synthesis → intermediate chemicals → finished pharmaceutical ingredients", moneyFlow: "Feedstock → Intermediate Chemicals → API Synthesis → Pharmaceutical Manufacturer", keywords: ["pharmaceutical chemicals", "API", "active pharmaceutical ingredient", "chemical synthesis"], dataApis: ["news", "stocks"] },
     ],
   },
-  },
   {
     id: 21,
     slug: "politics-government",
