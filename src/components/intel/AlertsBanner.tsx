@@ -1,5 +1,5 @@
 import type { Alert } from "@/lib/intelTypes";
-import { AlertTriangle, TrendingDown, Zap, Radio, Info, Plane, Flame, Swords, Cable } from "lucide-react";
+import { AlertTriangle, TrendingDown, Zap, Radio, Info, DollarSign, Ship, Rocket, BarChart3 } from "lucide-react";
 
 const levelConfig: Record<string, { icon: React.ElementType; bg: string; border: string; text: string; dot: string }> = {
   critical: { icon: AlertTriangle, bg: "bg-destructive/10", border: "border-destructive/30", text: "text-destructive", dot: "bg-destructive" },
@@ -9,13 +9,11 @@ const levelConfig: Record<string, { icon: React.ElementType; bg: string; border:
 };
 
 const domainIcon: Record<string, React.ElementType> = {
-  seismic: AlertTriangle,
+  crypto: DollarSign,
+  supply_chain: Ship,
+  venture: Rocket,
+  commodities: BarChart3,
   markets: TrendingDown,
-  space: Zap,
-  aviation: Plane,
-  fires: Flame,
-  conflict: Swords,
-  infrastructure: Cable,
 };
 
 export function AlertsBanner({ alerts }: { alerts: Alert[] }) {
