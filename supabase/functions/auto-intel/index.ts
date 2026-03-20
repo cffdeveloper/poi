@@ -166,6 +166,33 @@ const INDUSTRIES = [
     { id: "20.3", name: "Plastics & Polymers", keywords: ["plastics", "polymer", "PET", "packaging"] },
     { id: "20.4", name: "Pharmaceutical Chemicals", keywords: ["pharmaceutical chemicals", "API"] },
   ]},
+  { slug: "politics-government", name: "Politics & Government", subFlows: [
+    { id: "21.1", name: "Elections & Political Campaigns", keywords: ["election", "voting", "campaign finance", "political party", "polling", "democracy"] },
+    { id: "21.2", name: "Legislation & Regulation", keywords: ["legislation", "regulation", "parliament", "congress", "bill", "policy reform", "executive order"] },
+    { id: "21.3", name: "Geopolitics & Diplomacy", keywords: ["geopolitics", "sanctions", "trade war", "NATO", "BRICS", "G7", "diplomacy", "UN", "African Union"] },
+    { id: "21.4", name: "Public Procurement & Government Spending", keywords: ["government procurement", "tender", "public spending", "fiscal policy", "budget", "PPP"] },
+    { id: "21.5", name: "Lobbying & Interest Groups", keywords: ["lobbying", "interest group", "think tank", "PAC", "political donation"] },
+    { id: "21.6", name: "Governance & Anti-Corruption", keywords: ["corruption", "governance", "transparency", "anti-corruption", "whistleblower", "judicial reform"] },
+    { id: "21.7", name: "Tax Policy & Revenue", keywords: ["tax policy", "KRA", "IRS", "VAT", "income tax", "tax incentive", "digital tax"] },
+  ]},
+  { slug: "climate-sustainability", name: "Climate & Sustainability", subFlows: [
+    { id: "22.1", name: "Climate Policy & Agreements", keywords: ["climate change", "COP", "Paris Agreement", "net zero", "NDC", "IPCC"] },
+    { id: "22.2", name: "ESG & Sustainable Finance", keywords: ["ESG", "sustainable finance", "green bond", "impact investing", "TCFD"] },
+    { id: "22.3", name: "Disaster & Climate Adaptation", keywords: ["climate adaptation", "flood", "drought", "disaster preparedness", "El Nino"] },
+    { id: "22.4", name: "Circular Economy & Waste-to-Value", keywords: ["circular economy", "recycling", "upcycling", "waste-to-energy", "plastic credits"] },
+  ]},
+  { slug: "sports-leisure", name: "Sports & Leisure", subFlows: [
+    { id: "23.1", name: "Professional Sports & Leagues", keywords: ["Premier League", "NFL", "NBA", "FIFA", "CAF", "athletics", "transfer fee"] },
+    { id: "23.2", name: "Sports Betting & Gaming", keywords: ["sports betting", "Betika", "SportPesa", "DraftKings", "gambling regulation"] },
+    { id: "23.3", name: "Sponsorship & Sports Marketing", keywords: ["sponsorship", "endorsement", "Nike", "Adidas", "sports marketing"] },
+    { id: "23.4", name: "Fitness & Wellness", keywords: ["fitness", "gym", "wellness", "Peloton", "health supplements"] },
+  ]},
+  { slug: "non-profit-development", name: "Non-Profit & Development", subFlows: [
+    { id: "24.1", name: "International Aid & Multilaterals", keywords: ["USAID", "World Bank", "IMF", "UNDP", "foreign aid", "development finance"] },
+    { id: "24.2", name: "NGOs & Civil Society", keywords: ["NGO", "civil society", "charity", "Gates Foundation", "Oxfam", "philanthropy"] },
+    { id: "24.3", name: "Social Enterprise & Impact", keywords: ["social enterprise", "B-Corp", "impact measurement", "SDGs"] },
+    { id: "24.4", name: "Humanitarian & Emergency Response", keywords: ["humanitarian", "refugee", "UNHCR", "disaster relief", "famine", "crisis"] },
+  ]},
 ];
 
 async function generateReport(
