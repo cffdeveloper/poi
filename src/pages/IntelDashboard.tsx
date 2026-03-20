@@ -1,14 +1,11 @@
 import { useIntelFeed } from "@/hooks/useIntelFeed";
 import { AlertsBanner } from "@/components/intel/AlertsBanner";
 import { CryptoPanel } from "@/components/intel/CryptoPanel";
-import { EarthquakePanel } from "@/components/intel/EarthquakePanel";
-import { FlightsPanel } from "@/components/intel/FlightsPanel";
 import { ForexPanel } from "@/components/intel/ForexPanel";
-import { WeatherPanel } from "@/components/intel/WeatherPanel";
-import { SpacePanel } from "@/components/intel/SpacePanel";
-import { FiresPanel } from "@/components/intel/FiresPanel";
-import { ConflictsPanel } from "@/components/intel/ConflictsPanel";
-import { InfrastructurePanel } from "@/components/intel/InfrastructurePanel";
+import { CommoditiesPanel } from "@/components/intel/CommoditiesPanel";
+import { SupplyChainPanel } from "@/components/intel/SupplyChainPanel";
+import { VCPanel } from "@/components/intel/VCPanel";
+import { MarketSignalsPanel } from "@/components/intel/MarketSignalsPanel";
 import { SourcesStatus } from "@/components/intel/SourcesStatus";
 import { RefreshCw, Loader2 } from "lucide-react";
 
@@ -19,8 +16,8 @@ export default function IntelDashboard() {
     <div className="space-y-3 max-w-7xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-sm font-mono font-bold text-foreground">LIVE INTEL FEED</h1>
-          <p className="text-[9px] font-mono text-muted-foreground">Real-time data from 10+ public APIs • Auto-refresh 60s</p>
+          <h1 className="text-sm font-mono font-bold text-foreground">LIVE MARKET FEED</h1>
+          <p className="text-[9px] font-mono text-muted-foreground">Real-time market data • Auto-refresh 60s</p>
         </div>
         <div className="flex items-center gap-3">
           {feed?.sources_status && <SourcesStatus status={feed.sources_status} timestamp={feed.timestamp} />}
@@ -42,18 +39,13 @@ export default function IntelDashboard() {
       ) : feed ? (
         <>
           <AlertsBanner alerts={feed.alerts} />
-          <WeatherPanel data={feed.intel.weather} />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
             <div className="xl:row-span-2"><CryptoPanel data={feed.intel.crypto} /></div>
-            <div><EarthquakePanel data={feed.intel.earthquakes} /></div>
-            <div className="xl:row-span-2">
-              <SpacePanel launches={feed.intel.spacex} iss={feed.intel.iss} spaceWeather={feed.intel.space_weather} apod={feed.intel.apod} />
-            </div>
-            <div><FlightsPanel data={feed.intel.flights} /></div>
+            <div><CommoditiesPanel data={feed.intel.commodities} /></div>
+            <div className="xl:row-span-2"><VCPanel data={feed.intel.vc_signals} /></div>
             <div><ForexPanel data={feed.intel.forex} /></div>
-            <div><FiresPanel data={feed.intel.fires || []} /></div>
-            <div><ConflictsPanel data={feed.intel.conflicts || []} /></div>
-            <div className="xl:col-span-2"><InfrastructurePanel data={feed.intel.infrastructure || []} /></div>
+            <div><SupplyChainPanel data={feed.intel.supply_chain} /></div>
+            <div className="xl:col-span-2"><MarketSignalsPanel data={feed.intel.market_signals} /></div>
           </div>
         </>
       ) : null}
