@@ -4,6 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useGeoContext } from "@/contexts/GeoContext";
 import { useNavigate } from "react-router-dom";
+import { RegionAnalyticsDialog } from "./RegionAnalyticsDialog";
 
 const REGIONS: { name: string; lat: number; lng: number; label: string; code: string; industries: string[]; tradeVolume: string; disruptions: string[] }[] = [
   { name: "North America", lat: 40, lng: -100, label: "NA", code: "NA", industries: ["technology", "finance", "healthcare", "energy", "media"], tradeVolume: "$8.2T", disruptions: ["AI regulation wave", "Fed rate decisions"] },
