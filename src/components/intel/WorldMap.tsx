@@ -238,6 +238,13 @@ export function WorldMap() {
           </div>
         ))}
       </div>
+
+      {/* Region analytics popup */}
+      <RegionAnalyticsDialog
+        open={!!selectedRegion}
+        onClose={() => setSelectedRegion(null)}
+        region={selectedRegion}
+      />
     </div>
   );
 }
