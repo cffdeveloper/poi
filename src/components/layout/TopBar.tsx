@@ -1,7 +1,11 @@
 import { Hexagon, PanelLeftClose, PanelLeft, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
+import { GeoSelector } from "@/components/intel/GeoSelector";
+import { useGeoContext } from "@/contexts/GeoContext";
 
 export function TopBar({ sidebarOpen, toggleSidebar }: { sidebarOpen: boolean; toggleSidebar: () => void }) {
+  const { isGlobal, geoString } = useGeoContext();
+
   return (
     <header className="flex items-center justify-between px-4 py-2 border-b border-border/50 glass-panel-strong shrink-0">
       <div className="flex items-center gap-3">
@@ -20,12 +24,13 @@ export function TopBar({ sidebarOpen, toggleSidebar }: { sidebarOpen: boolean; t
               NEXUS <span className="text-primary">ATLAS</span>
             </h1>
             <p className="text-[8px] font-mono text-muted-foreground uppercase tracking-widest">
-              World Industry Intelligence
+              {isGlobal ? "Global Market Intelligence" : `Market Intel → ${geoString}`}
             </p>
           </div>
         </Link>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
+        <GeoSelector />
         <div className="flex items-center gap-1.5 px-2 py-1 rounded-full border border-border/50 bg-card/50">
           <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
           <span className="text-[9px] font-mono text-muted-foreground">20 INDUSTRIES</span>
