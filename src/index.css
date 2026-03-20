@@ -126,7 +126,7 @@
 
   .text-gradient-primary {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(45 100% 65%));
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(200 100% 70%));
   }
 
   .typing-cursor::after {
