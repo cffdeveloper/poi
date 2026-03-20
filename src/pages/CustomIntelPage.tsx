@@ -200,6 +200,7 @@ Answer the user's follow-up with the same structured block style when analytical
   }, [chatInput, report, isGlobal, geoString, primary, secondary, freeText, freeTextMode]);
 
   const segments = report ? parseBlocks(report) : [];
+  const totalSelected = pool.size + primary.size + secondary.size;
 
   const chip = (key: string) => {
     const p = findPickedByKey(key);
@@ -207,31 +208,30 @@ Answer the user's follow-up with the same structured block style when analytical
     return (
       <div
         key={key}
-        className="flex items-center gap-1 flex-wrap px-2 py-1 rounded border border-border/60 bg-muted/20 text-[10px] font-mono"
+        className="flex items-center gap-1.5 flex-wrap px-3 py-2 rounded-xl border border-border/60 bg-background/70 text-xs shadow-sm"
       >
-        <span className="text-muted-foreground truncate max-w-[140px]">{p.industryName.split(" ")[0]}</span>
-        <span className="text-primary">→</span>
-        <span className="text-foreground">{p.subFlow.shortName}</span>
+        <span className="text-muted-foreground truncate max-w-[160px]">{p.industryName}</span>
+        <span className="text-foreground font-semibold">{p.subFlow.shortName}</span>
         <button
           type="button"
-          className="text-[9px] text-primary hover:underline"
+          className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20"
           onClick={() => updateScope((d) => moveKey(key, d, "primary"))}
         >
-          Pri
+          Primary
         </button>
         <button
           type="button"
-          className="text-[9px] text-accent hover:underline"
+          className="text-[11px] px-2 py-0.5 rounded-full bg-accent/10 text-accent hover:bg-accent/20"
           onClick={() => updateScope((d) => moveKey(key, d, "secondary"))}
         >
-          Sec
+          Secondary
         </button>
         <button
           type="button"
           onClick={() => updateScope((d) => moveKey(key, d, "pool"))}
-          className="opacity-50 hover:opacity-100"
+          className="text-[11px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground hover:text-foreground"
         >
-          pool
+          Pool
         </button>
         <button
           type="button"
@@ -242,7 +242,7 @@ Answer the user's follow-up with the same structured block style when analytical
               d.secondary.delete(key);
             })
           }
-          className="opacity-60 hover:opacity-100"
+          className="opacity-60 hover:opacity-100 ml-auto"
           aria-label="Remove from custom scope"
           title="Remove"
         >
@@ -253,26 +253,36 @@ Answer the user's follow-up with the same structured block style when analytical
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-4 pb-20">
-      <div className="glass-panel p-4 glow-border">
-        <div className="flex items-start gap-3 mb-3">
-          <Layers className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-          <div>
-            <h1 className="text-sm font-mono font-bold text-foreground">Custom Intel Lab</h1>
-            <p className="text-[10px] font-mono text-muted-foreground mt-1 leading-relaxed max-w-3xl">
-              Pick money-flow subcategories from any industries, assign <span className="text-primary">primary</span> (your position) vs{" "}
-              <span className="text-accent">secondary</span> (context to scan for what matters to you). Add a free-text role if you don’t fit the
-              list. Uses your <strong>top-bar region</strong> for geo. Generates a deep brief; then ask follow-ups.
-            </p>
+    <div className="max-w-6xl mx-auto space-y-6 pb-24">
+      <div className="glass-panel p-6 glow-border overflow-hidden">
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div className="flex items-start gap-4">
+            <div className="rounded-2xl bg-primary/10 border border-primary/20 p-3">
+              <Layers className="w-6 h-6 text-primary shrink-0" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-semibold text-foreground tracking-tight">Custom Intel Lab</h1>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed max-w-4xl">
+                Build your own scope: create a pool, promote what matters to <span className="text-primary font-medium">Primary</span>, keep
+                signal lanes in <span className="text-accent font-medium">Secondary</span>, then run a targeted brief and follow-up.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-xl border border-border/60 bg-background/50 px-3 py-2">
+            <p className="text-xs text-muted-foreground">Region</p>
+            <p className="text-sm font-medium text-foreground">{isGlobal ? "Global" : geoString}</p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className="space-y-2">
-            <p className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground">Add subcategory to pool</p>
-            <div className="flex flex-wrap gap-2 items-end">
+        <div className="grid lg:grid-cols-12 gap-4">
+          <div className="lg:col-span-5 rounded-2xl border border-border/60 bg-background/50 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Step 1 — Build your pool</p>
+              <span className="text-xs text-muted-foreground">{pool.size} in pool</span>
+            </div>
+            <div className="space-y-3">
               <select
-                className="text-[10px] font-mono bg-background border border-border rounded px-2 py-1.5 max-w-[200px]"
+                className="text-sm bg-background border border-border rounded-md px-3 py-2 max-w-[240px]"
                 value={industrySlug}
                 onChange={(e) => setIndustrySlug(e.target.value)}
               >
@@ -283,7 +293,7 @@ Answer the user's follow-up with the same structured block style when analytical
                 ))}
               </select>
               <select
-                className="text-[10px] font-mono bg-background border border-border rounded px-2 py-1.5 flex-1 min-w-[160px]"
+                className="text-sm bg-background border border-border rounded-md px-3 py-2 w-full"
                 onChange={(e) => {
                   const v = e.target.value;
                   if (v) addSpecificToPool(v);
@@ -293,25 +303,41 @@ Answer the user's follow-up with the same structured block style when analytical
                 <option value="">Choose money flow…</option>
                 {subOptions.map((o) => (
                   <option key={o.subFlow.id} value={buildSubFlowKey(o.industrySlug, o.subFlow.id)}>
-                    {o.subFlow.shortName} — {o.subFlow.name.slice(0, 42)}…
+                    {o.subFlow.shortName} — {o.subFlow.name}
                   </option>
                 ))}
               </select>
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" size="sm" className="text-sm h-9" onClick={addToPool} type="button">
+                  Add first flow in industry
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="text-sm h-9 gap-1"
+                  type="button"
+                  onClick={shuffleRoles}
+                  disabled={totalSelected === 0}
+                >
+                  <Shuffle className="w-3 h-3" />
+                  Randomize roles
+                </Button>
+              </div>
             </div>
-            <Button variant="outline" size="sm" className="text-[10px] h-7 font-mono" onClick={addToPool} type="button">
-              Add first flow in industry
-            </Button>
           </div>
 
-          <div className="space-y-2">
-            <p className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground">Your text context (optional)</p>
+          <div className="lg:col-span-7 rounded-2xl border border-border/60 bg-background/50 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Step 2 — Define your context</p>
+              <span className="text-xs text-muted-foreground">Optional</span>
+            </div>
             <Textarea
               value={freeText}
               onChange={(e) => setFreeText(e.target.value)}
               placeholder='e.g. "Solo developer: React, edge functions, payments integrations" or "Civil works subcontractor focusing on roads"'
-              className="min-h-[72px] text-[10px] font-mono bg-background/80"
+              className="min-h-[90px] text-sm bg-background/80"
             />
-            <div className="flex items-center gap-4 text-[10px] font-mono text-muted-foreground">
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
               <label className="inline-flex items-center gap-1">
                 <input
                   type="radio"
@@ -334,81 +360,103 @@ Answer the user's follow-up with the same structured block style when analytical
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2 items-center">
-          <Button variant="secondary" size="sm" className="text-[10px] h-7 font-mono gap-1" type="button" onClick={shuffleRoles}>
-            <Shuffle className="w-3 h-3" />
-            Randomize primary / secondary
-          </Button>
-          <span className="text-[9px] text-muted-foreground font-mono">from pool + assigned</span>
+        <div className="mt-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+            Step 3 — Assign role lanes
+          </p>
+          <div className="grid md:grid-cols-3 gap-3">
+            <div className="rounded-2xl border border-border/50 p-3 bg-background/40">
+              <div className="mb-2">
+                <p className="text-sm font-semibold text-muted-foreground">Pool ({pool.size})</p>
+                <p className="text-xs text-muted-foreground">Unprioritized candidates</p>
+              </div>
+              <div className="flex flex-wrap gap-1.5 min-h-[56px]">
+                {[...pool].map((k) => chip(k))}
+                {pool.size === 0 && <span className="text-sm text-muted-foreground">Empty</span>}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-primary/30 p-3 bg-primary/5">
+              <div className="mb-2">
+                <p className="text-sm font-semibold text-primary flex items-center gap-1">
+                  <ArrowRight className="w-3 h-3" /> Primary ({primary.size})
+                </p>
+                <p className="text-xs text-primary/80">Your core position / outcome lens</p>
+              </div>
+              <div className="flex flex-wrap gap-1.5 min-h-[56px]">
+                {[...primary].map((k) => chip(k))}
+                {primary.size === 0 && <span className="text-sm text-muted-foreground">Optional</span>}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-accent/30 p-3 bg-accent/5">
+              <div className="mb-2">
+                <p className="text-sm font-semibold text-accent">Secondary ({secondary.size})</p>
+                <p className="text-xs text-accent/80">Signals supporting your primary thesis</p>
+              </div>
+              <div className="flex flex-wrap gap-1.5 min-h-[56px]">
+                {[...secondary].map((k) => chip(k))}
+                {secondary.size === 0 && <span className="text-sm text-muted-foreground">None</span>}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-4 grid md:grid-cols-3 gap-3">
-          <div className="rounded border border-border/40 p-2 bg-background/40">
-            <p className="text-[9px] font-mono font-bold text-muted-foreground mb-2">Pool</p>
-            <div className="flex flex-wrap gap-1.5 min-h-[40px]">
-              {[...pool].map((k) => chip(k))}
-              {pool.size === 0 && <span className="text-[9px] text-muted-foreground">Empty</span>}
-            </div>
-          </div>
-          <div className="rounded border border-primary/30 p-2 bg-primary/5">
-            <p className="text-[9px] font-mono font-bold text-primary mb-2 flex items-center gap-1">
-              <ArrowRight className="w-3 h-3" /> Primary
-            </p>
-            <div className="flex flex-wrap gap-1.5 min-h-[40px]">
-              {[...primary].map((k) => chip(k))}
-              {primary.size === 0 && <span className="text-[9px] text-muted-foreground">None</span>}
-            </div>
-          </div>
-          <div className="rounded border border-accent/30 p-2 bg-accent/5">
-            <p className="text-[9px] font-mono font-bold text-accent mb-2">Secondary</p>
-            <div className="flex flex-wrap gap-1.5 min-h-[40px]">
-              {[...secondary].map((k) => chip(k))}
-              {secondary.size === 0 && <span className="text-[9px] text-muted-foreground">None</span>}
-            </div>
-          </div>
-        </div>
-
-        {error && <p className="text-[10px] font-mono text-destructive mt-2">{error}</p>}
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          <Button className="font-mono text-[11px] gap-2" onClick={runIntel} disabled={loading} type="button">
-            {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
-            Run custom deep intel
-          </Button>
-          {report && (
-            <Button variant="outline" className="font-mono text-[11px] gap-1" type="button" onClick={runIntel} disabled={loading}>
-              <RefreshCw className="w-3 h-3" />
-              Refresh brief
+        <div className="mt-5 flex flex-wrap gap-2 items-center justify-between border-t border-border/50 pt-4">
+          <div className="flex flex-wrap gap-2 items-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-sm h-9"
+              type="button"
+              onClick={() => setScope({ pool: new Set(), primary: new Set(), secondary: new Set() })}
+              disabled={totalSelected === 0}
+            >
+              Clear all selections
             </Button>
-          )}
+            <span className="text-xs text-muted-foreground">{totalSelected} total selected</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button className="text-sm gap-2 h-10 px-5" onClick={runIntel} disabled={loading} type="button">
+              {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+              Run custom deep intel
+            </Button>
+            {report && (
+              <Button variant="outline" className="text-sm gap-1 h-10 px-4" type="button" onClick={runIntel} disabled={loading}>
+                <RefreshCw className="w-3 h-3" />
+                Refresh brief
+              </Button>
+            )}
+          </div>
         </div>
+
+        {error && <p className="text-sm text-destructive mt-3">{error}</p>}
       </div>
 
       {loading && (
-        <div className="glass-panel p-8 flex flex-col items-center gap-2">
+        <div className="glass-panel p-10 flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 text-primary animate-spin" />
-          <p className="text-xs font-mono text-muted-foreground">Synthesizing cross-domain intel for your primary/secondary lens…</p>
+          <p className="text-base text-foreground font-medium">Generating your custom intelligence brief…</p>
+          <p className="text-sm text-muted-foreground">Cross-linking primary/secondary context with your region focus.</p>
         </div>
       )}
 
       {!loading && segments.length > 0 && (
-        <div className="glass-panel p-4 space-y-4">
-          <h2 className="text-xs font-mono font-bold text-primary flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5" /> BRIEF
+        <div className="glass-panel p-5 space-y-4">
+          <h2 className="text-base font-semibold text-primary flex items-center gap-2">
+            <Sparkles className="w-3.5 h-3.5" /> Brief
           </h2>
           <BlockRenderer segments={segments} />
         </div>
       )}
 
       {report && !loading && (
-        <div className="glass-panel p-4 space-y-3 border border-border/50">
-          <h3 className="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-wider">Follow-up</h3>
-          <div className="space-y-2 max-h-[280px] overflow-y-auto text-[10px] font-mono">
+        <div className="glass-panel p-5 space-y-3 border border-border/50">
+          <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Follow-up</h3>
+          <div className="space-y-2 max-h-[320px] overflow-y-auto text-sm">
             {chatMessages.map((m, i) => (
               <div
                 key={i}
                 className={cn(
-                  "rounded px-2 py-1.5 whitespace-pre-wrap",
+                  "rounded-lg px-3 py-2 whitespace-pre-wrap",
                   m.role === "user" ? "bg-muted/40 text-foreground ml-4" : "bg-primary/5 text-foreground mr-4 border border-primary/15",
                 )}
               >
@@ -417,7 +465,7 @@ Answer the user's follow-up with the same structured block style when analytical
               </div>
             ))}
             {chatStreaming && (
-              <div className="rounded px-2 py-1.5 whitespace-pre-wrap bg-primary/5 text-foreground mr-4 border border-primary/15 text-[10px] font-mono">
+              <div className="rounded-lg px-3 py-2 whitespace-pre-wrap bg-primary/5 text-foreground mr-4 border border-primary/15 text-sm">
                 <span className="text-muted-foreground">Maverick: </span>
                 {chatStreaming}
               </div>
@@ -428,7 +476,7 @@ Answer the user's follow-up with the same structured block style when analytical
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
               placeholder="Ask a question, request a deeper cut on one linkage, or challenge an assumption…"
-              className="min-h-[56px] text-[10px] font-mono flex-1"
+              className="min-h-[64px] text-sm flex-1"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -436,7 +484,7 @@ Answer the user's follow-up with the same structured block style when analytical
                 }
               }}
             />
-            <Button type="button" className="shrink-0 font-mono text-[10px] h-auto" onClick={sendFollowUp} disabled={!chatInput.trim()}>
+            <Button type="button" className="shrink-0 text-sm h-auto px-4" onClick={sendFollowUp} disabled={!chatInput.trim()}>
               <Send className="w-4 h-4" />
             </Button>
           </div>

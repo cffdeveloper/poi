@@ -48,8 +48,8 @@ serve(async (req) => {
 ${BLOCK_INSTRUCTIONS}
 
 RULES FOR THIS MODE:
-1. ${hasPrimary ? "If primary exists, it defines success: tie every major insight back to primary implications unless it's direct risk." : "No explicit primary selected: infer a strategic center from the selected scope and structure around it."}
-2. SECONDARY is not "general market trivia." Explain what is happening OUT THERE and why it matters to the center of gravity (explicit primary if present, inferred center if not).
+1. ${hasPrimary ? "If primary exists, it defines success: tie every major insight back to primary implications unless it's direct risk." : "No explicit primary selected: treat all selected non-primary lanes as one generic basket and infer a single center of gravity from that basket."}
+2. SECONDARY is not "general market trivia." Explain what is happening OUT THERE and why it matters to the center of gravity (explicit primary if present, inferred generic basket if not).
 3. Explicitly map linkages: "Because X moved in [secondary], the focal scope faces Y opportunity / Z risk in ${isGlobalGeo ? "global markets" : geoContext}."
 4. Name companies, policies, numbers, dates where plausible. Mark uncertainty.
 5. Include forward-looking gaps and scenarios (not stale headlines as if current news).
@@ -63,15 +63,15 @@ ${freeTextPrimary && String(freeTextPrimary).trim() ? `## USER TEXT CONTEXT (${f
 ## PRIMARY SUBCATEGORIES (what to optimize for / strategic home base)
 ${primaryLines || "(none selected)"}
 
-## SECONDARY SUBCATEGORIES (peripheral markets to scan FOR relevance to primary)
+## SECONDARY SUBCATEGORIES (peripheral markets; if no primary, these become the generic focal basket)
 ${secondaryLines || "(none — use only primary scope)"}
 
 ## GEO FOCUS
 ${isGlobalGeo ? "Worldwide / global." : `Mandatory: ${geoContext}. Localize examples, regulators, channels, and sizing to this geography.`}
 
 OUTPUT REQUIREMENTS:
-1. Executive summary anchored on ${hasPrimary ? "PRIMARY" : "the inferred center of gravity"}, with SECONDARY as supporting scan.
-2. Section: "Linkage matrix" — table or bullets: Secondary signal → Mechanism → ${hasPrimary ? "Primary impact" : "Focal impact"}.
+1. Executive summary anchored on ${hasPrimary ? "PRIMARY" : "the inferred generic basket center"}, with SECONDARY as supporting scan.
+2. Section: "Linkage matrix" — table or bullets: Secondary signal → Mechanism → ${hasPrimary ? "Primary impact" : "Generic basket impact"}.
 3. Multiple structured blocks (metrics, insights, framework, comparison, steps, score).
 4. "What to watch" — 5 concrete monitors across secondary areas tied to primary.
 5. Gaps & market white space from THIS combined lens, in ${isGlobalGeo ? "global" : geoContext} context.
