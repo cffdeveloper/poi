@@ -92,6 +92,34 @@ export type SpaceXLaunch = {
   flight_number: number;
 };
 
+export type FireHotspot = {
+  latitude: number;
+  longitude: number;
+  brightness: number;
+  confidence: string;
+  acq_date: string;
+  satellite: string;
+  country?: string;
+};
+
+export type ConflictEvent = {
+  source: string;
+  title: string;
+  url: string;
+  date: string;
+  country?: string;
+  type?: string;
+};
+
+export type InfrastructureAsset = {
+  name: string;
+  type: "cable" | "pipeline" | "waterway" | "base" | "nuclear";
+  lat?: number;
+  lng?: number;
+  detail: string;
+  status?: string;
+};
+
 export type IntelFeed = {
   timestamp: string;
   alerts: Alert[];
@@ -105,6 +133,9 @@ export type IntelFeed = {
     space_weather: SpaceWeatherEvent[];
     apod: APOD | null;
     spacex: SpaceXLaunch[];
+    fires: FireHotspot[];
+    conflicts: ConflictEvent[];
+    infrastructure: InfrastructureAsset[];
   };
   sources_status: Record<string, boolean>;
 };

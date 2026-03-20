@@ -6,6 +6,9 @@ import { FlightsPanel } from "@/components/intel/FlightsPanel";
 import { ForexPanel } from "@/components/intel/ForexPanel";
 import { WeatherPanel } from "@/components/intel/WeatherPanel";
 import { SpacePanel } from "@/components/intel/SpacePanel";
+import { FiresPanel } from "@/components/intel/FiresPanel";
+import { ConflictsPanel } from "@/components/intel/ConflictsPanel";
+import { InfrastructurePanel } from "@/components/intel/InfrastructurePanel";
 import { SourcesStatus } from "@/components/intel/SourcesStatus";
 import { RefreshCw, Loader2 } from "lucide-react";
 
@@ -48,6 +51,9 @@ export default function IntelDashboard() {
             </div>
             <div><FlightsPanel data={feed.intel.flights} /></div>
             <div><ForexPanel data={feed.intel.forex} /></div>
+            <div><FiresPanel data={feed.intel.fires || []} /></div>
+            <div><ConflictsPanel data={feed.intel.conflicts || []} /></div>
+            <div className="xl:col-span-2"><InfrastructurePanel data={feed.intel.infrastructure || []} /></div>
           </div>
         </>
       ) : null}
