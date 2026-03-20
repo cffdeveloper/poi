@@ -1,10 +1,11 @@
 import { useParams, Navigate, Link } from "react-router-dom";
 import { getSubFlow } from "@/lib/industryData";
-import { ArrowLeft, TrendingUp, Lightbulb, RefreshCw, Loader2, AlertTriangle } from "lucide-react";
+import { ArrowLeft, TrendingUp, Lightbulb, RefreshCw, Loader2, AlertTriangle, Database } from "lucide-react";
 import { useSubFlowIntel } from "@/hooks/useSubFlowIntel";
 import { useIndustryNews } from "@/hooks/useIndustryNews";
 import { useSocialIntel } from "@/hooks/useSocialIntel";
 import { useSnapshots } from "@/hooks/useSnapshots";
+import { useCachedIntel } from "@/hooks/useCachedIntel";
 import { useGeoContext } from "@/contexts/GeoContext";
 import { NewsFeed } from "@/components/intel/NewsFeed";
 import { SocialIntelPanel } from "@/components/intel/SocialIntelPanel";
@@ -27,6 +28,7 @@ export default function SubFlowPage() {
   );
   const scopeKey = result ? `${result.industry.name}::${result.subFlow.name}` : "";
   const { snapshots, loading: snapsLoading } = useSnapshots("subflow", scopeKey);
+  const { report: cachedReport } = useCachedIntel("subflow", scopeKey);
 
   if (!result) return <Navigate to="/" replace />;
   const { industry, subFlow } = result;
@@ -58,24 +60,35 @@ export default function SubFlowPage() {
         {/* AI Analysis */}
         <ClickableItem
           title={`${subFlow.name} — Full Market Analysis`}
-          detail={data?.analysis}
+          detail={cachedReport?.analysis || data?.analysis}
           industryName={industry.name}
           subFlowName={subFlow.name}
           className="glass-panel p-4 hover:glow-border transition-all"
         >
-          <h2 className="text-xs font-mono font-bold text-primary mb-2 flex items-center gap-1.5">
-            <TrendingUp className="w-3.5 h-3.5" /> AI DEEP ANALYSIS
-            <span className="text-[8px] font-mono text-muted-foreground/50 ml-auto">Click for deep dive →</span>
-          </h2>
-          {loading && !data ? (
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-xs font-mono font-bold text-primary flex items-center gap-1.5">
+              <TrendingUp className="w-3.5 h-3.5" /> AI DEEP ANALYSIS
+            </h2>
+            <div className="flex items-center gap-2">
+              {cachedReport?.created_at && (
+                <span className="text-[7px] font-mono text-muted-foreground flex items-center gap-1">
+                  <Database className="w-2.5 h-2.5" /> {new Date(cachedReport.created_at).toLocaleString()}
+                </span>
+              )}
+              <span className="text-[8px] font-mono text-muted-foreground/50">Click for deep dive →</span>
+            </div>
+          </div>
+          {loading && !data && !cachedReport ? (
             <div className="flex items-center gap-2 py-6">
               <Loader2 className="w-4 h-4 text-primary animate-spin" />
               <span className="text-xs font-mono text-muted-foreground">Analyzing {subFlow.name}...</span>
             </div>
-          ) : data?.analysis ? (
-            <p className="text-[11px] font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-6">{data.analysis}</p>
+          ) : (cachedReport?.summary || data?.analysis) ? (
+            <p className="text-[11px] font-mono text-card-foreground leading-relaxed whitespace-pre-wrap line-clamp-6">
+              {cachedReport?.summary || data?.analysis}
+            </p>
           ) : (
-            <p className="text-xs font-mono text-muted-foreground">Analysis loading...</p>
+            <p className="text-xs font-mono text-muted-foreground">Auto-intel will generate report on next cycle.</p>
           )}
         </ClickableItem>
 
