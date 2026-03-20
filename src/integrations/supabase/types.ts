@@ -113,6 +113,63 @@ export type Database = {
         }
         Relationships: []
       }
+      intel_matches: {
+        Row: {
+          action_items: Json | null
+          challenges: Json | null
+          collaborators: Json | null
+          confidence: number | null
+          created_at: string
+          description: string | null
+          estimated_value: string | null
+          geo_context: string[] | null
+          id: string
+          industries: string[] | null
+          match_type: string
+          raw_data_refs: string[] | null
+          source_insights: string[] | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          action_items?: Json | null
+          challenges?: Json | null
+          collaborators?: Json | null
+          confidence?: number | null
+          created_at?: string
+          description?: string | null
+          estimated_value?: string | null
+          geo_context?: string[] | null
+          id?: string
+          industries?: string[] | null
+          match_type: string
+          raw_data_refs?: string[] | null
+          source_insights?: string[] | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          action_items?: Json | null
+          challenges?: Json | null
+          collaborators?: Json | null
+          confidence?: number | null
+          created_at?: string
+          description?: string | null
+          estimated_value?: string | null
+          geo_context?: string[] | null
+          id?: string
+          industries?: string[] | null
+          match_type?: string
+          raw_data_refs?: string[] | null
+          source_insights?: string[] | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       intel_snapshots: {
         Row: {
           alerts: Json | null
@@ -152,6 +209,42 @@ export type Database = {
           scope_key?: string
           scope_type?: string
           summary?: string | null
+        }
+        Relationships: []
+      }
+      raw_market_data: {
+        Row: {
+          created_at: string
+          data_type: string
+          expires_at: string | null
+          geo_scope: string | null
+          id: string
+          industry: string | null
+          payload: Json
+          source: string
+          tags: string[] | null
+        }
+        Insert: {
+          created_at?: string
+          data_type: string
+          expires_at?: string | null
+          geo_scope?: string | null
+          id?: string
+          industry?: string | null
+          payload?: Json
+          source: string
+          tags?: string[] | null
+        }
+        Update: {
+          created_at?: string
+          data_type?: string
+          expires_at?: string | null
+          geo_scope?: string | null
+          id?: string
+          industry?: string | null
+          payload?: Json
+          source?: string
+          tags?: string[] | null
         }
         Relationships: []
       }

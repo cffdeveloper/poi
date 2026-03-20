@@ -103,7 +103,7 @@ export function GeoSelector() {
                   tab === t ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                {t === "sub" ? "Counties/States" : t === "continent" ? "Continents" : "Countries"}
+                {t === "sub" ? "States/Counties/Provinces" : t === "continent" ? "Continents" : "Countries"}
               </button>
             ))}
           </div>
