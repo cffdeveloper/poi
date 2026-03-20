@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-const REFRESH_MS = 180_000; // 3 minutes
+const REFRESH_MS = 180_000;
 
-export function useSubFlowIntel(subFlowName: string, keywords: string[], industryName: string) {
+export function useSubFlowIntel(subFlowName: string, keywords: string[], industryName: string, geoContext?: string) {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -12,7 +12,7 @@ export function useSubFlowIntel(subFlowName: string, keywords: string[], industr
     setLoading(true);
     try {
       const { data: result, error } = await supabase.functions.invoke("industry-intel", {
-        body: { industry: industryName, subFlow: subFlowName, keywords, detailed: true },
+        body: { industry: industryName, subFlow: subFlowName, keywords, detailed: true, geoContext: geoContext || "global" },
       });
       if (error) throw error;
       setData(result);
@@ -21,7 +21,7 @@ export function useSubFlowIntel(subFlowName: string, keywords: string[], industr
     } finally {
       setLoading(false);
     }
-  }, [subFlowName, industryName, keywords.join(",")]);
+  }, [subFlowName, industryName, keywords.join(","), geoContext]);
 
   useEffect(() => {
     fetch_();
