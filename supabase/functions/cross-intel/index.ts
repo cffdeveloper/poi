@@ -68,15 +68,17 @@ PRINCIPLES:
 - Every gap/opportunity must be DERIVED from the intelligence, not stated in isolation
 - Reference and evolve previous analyses${historicalContext}`;
 
-    const userPrompt = `Scan ALL 20 industries for EXPLOITABLE CROSS-INDUSTRY OPPORTUNITIES${!isGlobal ? ` specifically for the ${geoStr} market` : ""}:
+    const userPrompt = `Provide COMPREHENSIVE CROSS-INDUSTRY INTELLIGENCE across all 20 industries${!isGlobal ? ` for the ${geoStr} market` : ""}:
 
 ${industryList}
 
 Return JSON:
 {
-  "summary": "250-word executive brief${!isGlobal ? ` for ${geoStr}` : ""}: biggest cross-industry money opportunities, capital flow inefficiencies, and highest ROI convergence plays. Be specific with dollar amounts and company names${!isGlobal ? ` relevant to ${geoStr}` : ""}.",
-  "gaps": [{"title": "...", "detail": "60-word explanation of the cross-industry gap, market value, and how to exploit it${!isGlobal ? ` in ${geoStr}` : ""}", "industries": ["A", "B"], "estimated_value": "$X", "urgency": "high|medium|low"}] (8 cross-industry gaps),
-  "connections": [{"title": "...", "detail": "50-word explanation and how to leverage for profit${!isGlobal ? ` in ${geoStr}` : ""}", "from": "A", "to": "B", "opportunity_type": "arbitrage|supply_chain|tech_transfer|convergence|regulatory"}] (8 cross-industry connections),
+  "summary": "350-word intelligence briefing${!isGlobal ? ` for ${geoStr}` : ""}: Map the key players operating across industries, recent cross-sector deals and partnerships, where money flows between sectors, and what forces are driving industry convergence. Name companies, people, amounts, and dates.",
+  "cross_industry_players": [{"name": "...", "industries": ["A","B"], "activity": "what they are doing across sectors", "strategy": "their cross-industry play"}] (6 key cross-industry operators),
+  "deals": [{"type": "M&A|partnership|investment|contract", "parties": "who", "industries": ["A","B"], "value": "$X", "significance": "why this cross-industry move matters"}] (5 recent cross-industry deals),
+  "gaps": [{"title": "...", "detail": "60-word explanation grounded in the intelligence: what player activity or market condition creates this cross-industry gap${!isGlobal ? ` in ${geoStr}` : ""}", "industries": ["A", "B"], "estimated_value": "$X", "urgency": "high|medium|low", "related_players": "who is relevant"}] (8 cross-industry gaps derived from intel),
+  "connections": [{"title": "...", "detail": "50-word explanation with specific companies and how to leverage${!isGlobal ? ` in ${geoStr}` : ""}", "from": "A", "to": "B", "opportunity_type": "arbitrage|supply_chain|tech_transfer|convergence|regulatory", "key_players": "who is involved"}] (8 cross-industry connections),
   "alerts": [{"title": "...", "detail": "...", "level": "critical|high|medium|info"}] (6 time-sensitive cross-industry alerts)
 }`;
 
