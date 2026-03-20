@@ -1,5 +1,5 @@
 import { Brain, Search, BarChart3, Target } from "lucide-react";
-import type { AnalysisMode } from "@/hooks/useNexusChat";
+import type { AnalysisMode } from "@/hooks/useMaverickChat";
 
 const modes: { id: AnalysisMode; label: string; icon: React.ElementType; desc: string }[] = [
   { id: "general", label: "General", icon: Brain, desc: "Open intelligence" },

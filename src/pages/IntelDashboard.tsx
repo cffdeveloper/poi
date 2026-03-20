@@ -17,7 +17,7 @@ export default function IntelDashboard() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Radio className="w-3.5 h-3.5 text-primary" />
-          <span className="terminal-header">LIVE MARKET FEED</span>
+          <span className="terminal-header text-[10px]">LIVE MARKET FEED</span>
           <span className="text-[9px] text-muted-foreground">11+ sources · auto-refresh 60s</span>
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
         </div>

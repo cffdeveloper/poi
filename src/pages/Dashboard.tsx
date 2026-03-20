@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BrandWordmark } from "@/components/BrandWordmark";
 import { industries } from "@/lib/industryData";
 import { ArrowRight, TrendingUp, Zap, Bell, BellOff, Activity, Database, Radio, BarChart3 } from "lucide-react";
 import { WorldMap } from "@/components/intel/WorldMap";
@@ -62,7 +63,9 @@ export default function Dashboard() {
         <div className="relative flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="terminal-header text-xs">NEXUS ATLAS</span>
+              <span className="text-sm">
+                <BrandWordmark />
+              </span>
               <span className="text-[9px] px-1.5 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">v2.0</span>
               <span className="flex items-center gap-1 text-[9px] text-green-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
@@ -119,7 +122,7 @@ export default function Dashboard() {
       {/* Industry grid */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <span className="terminal-header">ALL INDUSTRIES</span>
+          <span className="terminal-header text-[10px]">ALL INDUSTRIES</span>
           <span className="text-[9px] text-muted-foreground">{industries.length} sectors · {totalFlows} flows</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2">

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { Message } from "@/hooks/useNexusChat";
+import type { Message } from "@/hooks/useMaverickChat";
 import { Bot, User, Atom, Search, BarChart3, Target, ArrowRight, Sparkles } from "lucide-react";
 import { parseBlocks } from "@/lib/parseBlocks";
 import { BlockRenderer } from "@/components/BlockRenderer";
@@ -55,7 +55,7 @@ export function MessageList({
                   key={q.label}
                   className="group flex items-start gap-3 p-4 rounded-lg bg-muted/20 border border-border/30 hover:border-primary/20 hover:bg-muted/40 transition-all duration-200 text-left"
                   onClick={() => {
-                    window.dispatchEvent(new CustomEvent("nexus-quick-prompt", { detail: q.text }));
+                    window.dispatchEvent(new CustomEvent("maverick-quick-prompt", { detail: q.text }));
                   }}
                 >
                   <div className="w-8 h-8 rounded-lg bg-primary/8 border border-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">

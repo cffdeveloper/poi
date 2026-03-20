@@ -206,7 +206,7 @@ export function WorldMap() {
       <div className="px-3 py-2 border-b border-border/50 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Globe className="w-3.5 h-3.5 text-primary" />
-          <span className="terminal-header">GLOBAL FLOW MAP</span>
+          <span className="terminal-header text-[10px]">GLOBAL FLOW MAP</span>
           <span className="text-[9px] text-muted-foreground">LIVE</span>
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
         </div>

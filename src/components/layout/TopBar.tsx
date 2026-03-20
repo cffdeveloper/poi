@@ -1,24 +1,28 @@
-import { Hexagon, PanelLeftClose, PanelLeft, Activity } from "lucide-react";
+import { PanelLeftClose, PanelLeft, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { GeoSelector } from "@/components/intel/GeoSelector";
 import { useGeoContext } from "@/contexts/GeoContext";
+import { BrandHexMark } from "@/components/BrandHexMark";
+import { BrandWordmark } from "@/components/BrandWordmark";
 
 export function TopBar({ sidebarOpen, toggleSidebar }: { sidebarOpen: boolean; toggleSidebar: () => void }) {
   const { isGlobal, geoString } = useGeoContext();
 
   return (
-    <header className="h-9 border-b border-border/50 bg-card/60 flex items-center px-2 gap-2 shrink-0">
+    <header className="min-h-11 h-11 border-b border-border/50 bg-card/60 flex items-center px-2 gap-2.5 shrink-0">
       <button onClick={toggleSidebar} className="p-1 text-muted-foreground hover:text-foreground transition-colors">
         {sidebarOpen ? <PanelLeftClose className="w-3.5 h-3.5" /> : <PanelLeft className="w-3.5 h-3.5" />}
       </button>
 
-      <Link to="/" className="flex items-center gap-1.5">
-        <Hexagon className="w-4 h-4 text-primary" strokeWidth={2.5} />
-        <span className="terminal-header text-[11px]">NEXUS ATLAS</span>
+      <Link to="/" className="flex items-center gap-2 min-w-0">
+        <BrandHexMark size="md" />
+        <span className="text-[15px] sm:text-base truncate">
+          <BrandWordmark />
+        </span>
       </Link>
 
-      <span className="text-[9px] text-muted-foreground hidden md:block">
-        {isGlobal ? "Global Market Intelligence" : `Intel → ${geoString}`}
+      <span className="text-[10px] text-muted-foreground hidden md:block">
+        {isGlobal ? "Global" : `Intel → ${geoString}`}
       </span>
 
       <div className="ml-auto flex items-center gap-2">

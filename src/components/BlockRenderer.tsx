@@ -15,7 +15,7 @@ export function BlockRenderer({ segments }: { segments: ContentSegment[] }) {
         switch (seg.type) {
           case "text":
             return (
-              <div key={i} className="prose-nexus text-[13px] text-card-foreground leading-relaxed">
+              <div key={i} className="prose-maverick text-[13px] text-card-foreground leading-relaxed">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{

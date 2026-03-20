@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
 @import "leaflet/dist/leaflet.css";
 
 @tailwind base;
@@ -46,7 +46,6 @@
     --sidebar-border: 220 15% 10%;
     --sidebar-ring: 210 100% 56%;
 
-    /* Custom tokens */
     --surface-elevated: 220 18% 8%;
     --glow-primary: 210 100% 56%;
     --success: 155 70% 40%;
@@ -64,12 +63,13 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'IBM Plex Mono', 'JetBrains Mono', 'Courier New', monospace;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 13px;
-    line-height: 1.5;
-    letter-spacing: -0.01em;
+    font-size: 14px;
+    line-height: 1.55;
+    letter-spacing: -0.006em;
+    font-weight: 400;
   }
 
   /* Custom scrollbar */
@@ -129,6 +129,11 @@
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(200 100% 70%));
   }
 
+  /* Logotype: tech display font — use with M + averick spans only where needed */
+  .font-brand {
+    font-family: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  }
+
   .typing-cursor::after {
     content: '▊';
     animation: blink 1s step-end infinite;
@@ -161,9 +166,9 @@
     color: hsl(var(--muted-foreground));
   }
 
-  /* Terminal header style */
+  /* Terminal-style label — set text size in markup (e.g. text-xs, text-sm) */
   .terminal-header {
-    @apply text-[10px] font-bold uppercase tracking-[0.15em];
+    @apply font-bold uppercase tracking-[0.15em];
     color: hsl(var(--primary));
   }
 
@@ -226,9 +231,9 @@
 
 /* Leaflet map tooltip overrides */
 .map-tooltip {
-  background: hsl(220 18% 7% / 0.96) !important;
-  border: 1px solid hsl(210 100% 56% / 0.3) !important;
-  color: hsl(200 20% 92%) !important;
+  background: hsl(var(--card) / 0.96) !important;
+  border: 1px solid hsl(var(--primary) / 0.35) !important;
+  color: hsl(var(--card-foreground)) !important;
   border-radius: 3px !important;
   padding: 4px 8px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
@@ -236,11 +241,11 @@
   font-size: 10px !important;
 }
 .map-tooltip::before {
-  border-top-color: hsl(220 18% 7% / 0.96) !important;
+  border-top-color: hsl(var(--card) / 0.96) !important;
 }
 .leaflet-container {
-  background: hsl(220 20% 4%) !important;
-  font-family: 'IBM Plex Mono', monospace !important;
+  background: hsl(var(--background)) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 .leaflet-control-attribution {
   display: none !important;

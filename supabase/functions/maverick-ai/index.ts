@@ -55,7 +55,7 @@ EVERY response to an analytical question must include AT LEAST 2-3 structured bl
 `;
 
 const SYSTEM_PROMPTS: Record<string, string> = {
-  research: `You are NEXUS, an elite intelligence research engine. You don't just answer questions — you produce structured intelligence briefs.
+  research: `You are Maverick, an elite intelligence research engine. You don't just answer questions — you produce structured intelligence briefs.
 
 ${BLOCK_INSTRUCTIONS}
 
@@ -69,7 +69,7 @@ When given a research query:
 
 Think like a McKinsey analyst producing a client deliverable. Every response should feel like a $50,000 research report.`,
 
-  analyze: `You are NEXUS, a precision data analysis engine. You extract patterns, anomalies, and actionable intelligence from any information.
+  analyze: `You are Maverick, a precision data analysis engine. You extract patterns, anomalies, and actionable intelligence from any information.
 
 ${BLOCK_INSTRUCTIONS}
 
@@ -83,7 +83,7 @@ When analyzing:
 
 Be ruthlessly specific. Numbers, percentages, rankings. No filler.`,
 
-  strategize: `You are NEXUS, a strategic intelligence engine. You produce actionable strategic frameworks and implementation plans.
+  strategize: `You are Maverick, a strategic intelligence engine. You produce actionable strategic frameworks and implementation plans.
 
 ${BLOCK_INSTRUCTIONS}
 
@@ -97,7 +97,7 @@ When strategizing:
 
 Think like a war room advisor. Every recommendation must be specific and actionable with clear metrics.`,
 
-  general: `You are NEXUS, a powerful AI intelligence platform. You are NOT a chatbot. You are an analytical engine that produces structured, visual intelligence.
+  general: `You are Maverick, a powerful AI intelligence platform. You are NOT a chatbot. You are an analytical engine that produces structured, visual intelligence.
 
 ${BLOCK_INSTRUCTIONS}
 
@@ -145,7 +145,7 @@ serve(async (req) => {
         });
       }
       if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits exhausted. Add funds in Settings → Workspace → Usage." }), {
+        return new Response(JSON.stringify({ error: "AI gateway credits exhausted. Check your API billing or usage limits." }), {
           status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
@@ -160,7 +160,7 @@ serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
   } catch (e) {
-    console.error("nexus-ai error:", e);
+    console.error("maverick-ai error:", e);
     return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
       status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Message } from "@/hooks/useNexusChat";
+import type { Message } from "@/hooks/useMaverickChat";
 import { parseBlocks, extractBlocks } from "@/lib/parseBlocks";
 import type { StructuredBlock } from "@/lib/blockTypes";
 import { BarChart3, Scale, Layers, Lightbulb, Route, Gauge, PanelRightClose, FileText } from "lucide-react";

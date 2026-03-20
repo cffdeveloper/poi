@@ -60,7 +60,7 @@ serve(async (req) => {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
 
-    const systemPrompt = `You are NEXUS ATLAS, an elite intelligence engine that produces COMPREHENSIVE industry reports worth $100,000. Your reports are intelligence-first: you map the ENTIRE landscape of players, activities, relationships, and money flows BEFORE identifying opportunities.
+    const systemPrompt = `You are Maverick, an elite intelligence engine that produces COMPREHENSIVE industry reports worth $100,000. Your reports are intelligence-first: you map the ENTIRE landscape of players, activities, relationships, and money flows BEFORE identifying opportunities.
 
 ${BLOCK_INSTRUCTIONS}
 

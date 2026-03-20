@@ -1,27 +1,21 @@
-import { Hexagon, RotateCcw, Sparkles } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BrandHexMark } from "@/components/BrandHexMark";
+import { BrandWordmark } from "@/components/BrandWordmark";
 
 export function TopNav({ onClear, hasMessages }: { onClear: () => void; hasMessages: boolean }) {
   return (
-    <header className="flex items-center justify-between px-5 py-3.5 border-b border-border/40 glass-panel-strong z-10">
-      <div className="flex items-center gap-3">
-        <div className="relative w-9 h-9">
-          <Hexagon className="w-9 h-9 text-primary/80" strokeWidth={1.2} />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-2.5 h-2.5 rounded-full bg-primary/80 animate-pulse-glow" />
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2">
-            <h1 className="text-base font-bold font-mono tracking-[0.25em] text-gradient-primary">
-              NEXUS
+    <header className="flex items-center justify-between px-5 py-4 border-b border-border/40 glass-panel-strong z-10">
+      <div className="flex items-center gap-4">
+        <BrandHexMark size="lg" />
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <h1 className="text-2xl sm:text-3xl md:text-[2rem]">
+              <BrandWordmark />
             </h1>
-            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-primary/10 text-primary/70 border border-primary/15 tracking-wider">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/12 text-primary border border-primary/25 tracking-wider">
               v1.0
             </span>
           </div>
-          <p className="text-[10px] font-mono text-muted-foreground tracking-wider">
-            Intelligence Platform
-          </p>
         </div>
       </div>
 

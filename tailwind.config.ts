@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["IBM Plex Mono", "JetBrains Mono", "Courier New", "monospace"],
-        mono: ["IBM Plex Mono", "JetBrains Mono", "monospace"],
+        sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        mono: ["IBM Plex Mono", "JetBrains Mono", "ui-monospace", "monospace"],
+        brand: ["Chakra Petch", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

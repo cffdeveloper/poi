@@ -10,7 +10,7 @@ export type Message = {
 
 export type AnalysisMode = "general" | "research" | "analyze" | "strategize";
 
-export function useNexusChat() {
+export function useMaverickChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);

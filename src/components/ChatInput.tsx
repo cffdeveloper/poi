@@ -18,8 +18,8 @@ export function ChatInput({
         onSend(detail);
       }
     };
-    window.addEventListener("nexus-quick-prompt", handler);
-    return () => window.removeEventListener("nexus-quick-prompt", handler);
+    window.addEventListener("maverick-quick-prompt", handler);
+    return () => window.removeEventListener("maverick-quick-prompt", handler);
   }, [onSend]);
 
   // Auto-resize textarea
@@ -54,7 +54,7 @@ export function ChatInput({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask NEXUS anything..."
+          placeholder="Ask Maverick anything..."
           rows={1}
           className="flex-1 bg-transparent resize-none text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none py-2 px-3 font-mono leading-relaxed"
           style={{ minHeight: "2.5rem" }}

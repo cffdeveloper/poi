@@ -41,10 +41,10 @@ export function useAlertNotifications(alerts: any[], enabled: boolean = true) {
     // Browser notification
     if ("Notification" in window && Notification.permission === "granted") {
       const top = criticalAlerts[0];
-      new Notification(`⚠️ NEXUS ATLAS Alert`, {
+      new Notification(`⚠️ Maverick alert`, {
         body: `${top.title}\n${top.detail || ""}`,
-        icon: "/favicon.ico",
-        tag: "nexus-alert",
+        icon: "/favicon.svg",
+        tag: "maverick-alert",
       });
     }
   }, [alerts, enabled, playAlert]);

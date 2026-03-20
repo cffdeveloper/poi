@@ -7,9 +7,11 @@ import { SupplyChainPanel } from "@/components/intel/SupplyChainPanel";
 import { VCPanel } from "@/components/intel/VCPanel";
 import { MarketSignalsPanel } from "@/components/intel/MarketSignalsPanel";
 import { SourcesStatus } from "@/components/intel/SourcesStatus";
-import { Hexagon, RefreshCw, Loader2, DollarSign } from "lucide-react";
+import { RefreshCw, Loader2 } from "lucide-react";
+import { BrandHexMark } from "@/components/BrandHexMark";
+import { BrandWordmark } from "@/components/BrandWordmark";
 
-const NexusDashboard = () => {
+const MaverickDashboard = () => {
   const { feed, loading, error, lastRefresh, refresh } = useIntelFeed();
 
   return (
@@ -19,25 +21,20 @@ const NexusDashboard = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 40% at 50% 0%, hsl(185 100% 50% / 0.03) 0%, transparent 60%)",
+            "radial-gradient(ellipse 80% 40% at 50% 0%, hsl(185 90% 48% / 0.07) 0%, transparent 60%)",
         }}
       />
 
       <div className="relative z-10 flex flex-col h-full">
-        <header className="flex items-center justify-between px-4 py-2 border-b border-border/50 glass-panel-strong">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <DollarSign className="w-5 h-5 text-primary" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              </div>
-            </div>
+        <header className="flex items-center justify-between px-4 py-3 border-b border-border/50 glass-panel-strong">
+          <div className="flex items-center gap-4">
+            <BrandHexMark size="lg" />
             <div>
-              <h1 className="text-sm font-mono font-bold tracking-wider text-foreground">
-                NEXUS <span className="text-primary">MARKET INTEL</span>
+              <h1 className="text-2xl sm:text-3xl md:text-[2.125rem]">
+                <BrandWordmark />
               </h1>
-              <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest">
-                Money Flow Intelligence • Gap Detection • Opportunity Engine
+              <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mt-0.5">
+                Money flow • Gaps • Signals
               </p>
             </div>
           </div>
@@ -116,4 +113,4 @@ const NexusDashboard = () => {
   );
 };
 
-export default NexusDashboard;
+export default MaverickDashboard;
