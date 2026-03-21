@@ -4,8 +4,9 @@ import { industries } from "@/lib/industryData";
 import { ArrowRight, TrendingUp, Zap, Bell, BellOff, Activity, Database, Radio, BarChart3 } from "lucide-react";
 import { WorldMap } from "@/components/intel/WorldMap";
 import { useAlertNotifications } from "@/hooks/useAlertNotifications";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Dashboard() {
   const [alertsEnabled, setAlertsEnabled] = useState(true);
