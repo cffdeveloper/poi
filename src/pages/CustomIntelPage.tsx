@@ -486,24 +486,27 @@ Answer the user's follow-up with the same structured block style when analytical
           <h2 className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-wide">Follow-up</h2>
           <p className="text-[9px] font-mono text-muted-foreground -mt-1">Continue the session — answers use the same structured blocks when analytical.</p>
           <div className="space-y-2 max-h-[320px] overflow-y-auto">
-            {chatMessages.map((m, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "rounded-md px-3 py-2 text-[11px] font-mono leading-relaxed whitespace-pre-wrap border",
-                  m.role === "user"
-                    ? "bg-muted/25 border-border/40 text-foreground ml-2 md:ml-8"
-                    : "bg-primary/5 border-primary/20 text-foreground mr-2 md:mr-6",
-                )}
-              >
-                <span className="text-muted-foreground">{m.role === "user" ? "You · " : "Maverick · "}</span>
-                {m.content}
-              </div>
-            ))}
+            {chatMessages.map((m, i) => {
+              const msgSegments = m.role === "assistant" ? parseBlocks(m.content) : null;
+              return (
+                <div
+                  key={i}
+                  className={cn(
+                    "rounded-md px-3 py-2 text-[11px] font-mono leading-relaxed whitespace-pre-wrap border",
+                    m.role === "user"
+                      ? "bg-muted/25 border-border/40 text-foreground ml-2 md:ml-8"
+                      : "bg-primary/5 border-primary/20 text-foreground mr-2 md:mr-6",
+                  )}
+                >
+                  <span className="text-muted-foreground">{m.role === "user" ? "You · " : "Maverick · "}</span>
+                  {msgSegments ? <BlockRenderer segments={msgSegments} /> : m.content}
+                </div>
+              );
+            })}
             {chatStreaming && (
               <div className="rounded-md px-3 py-2 text-[11px] font-mono whitespace-pre-wrap bg-primary/5 text-foreground mr-2 md:mr-6 border border-primary/20">
                 <span className="text-muted-foreground">Maverick · </span>
-                {chatStreaming}
+                <BlockRenderer segments={parseBlocks(chatStreaming)} />
               </div>
             )}
           </div>
