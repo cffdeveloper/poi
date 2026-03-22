@@ -33,7 +33,7 @@ export default function AuthPage() {
           password,
           options: {
             data: { full_name: fullName },
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: PROD_URL,
           },
         });
         if (error) throw error;
